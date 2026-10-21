@@ -97,23 +97,34 @@ A pontuação por regra permite combinar várias evidências e **explicar** a de
 
 **Confiança:** `alta` (margem ≥ 5 sobre a 2ª colocada), `media` (margem 2–4) e `baixa` (margem < 2 ou pontuação do vencedor < 6, comum em perfis iniciantes sem preferências marcantes). Em confiança baixa, a interface deve exibir também a segunda opção.
 
-## 7. Verificação preliminar (14 perfis)
+## 7. Validação com personas (Fase 4)
 
-| Perfil de teste | Esperada | Obtida | Pontos | Confiança |
-|---|---|---|---|---|
-| Lógica + Python + web | Back-end | Back-end | 9 | alta |
-| Layouts + JavaScript + produto ao usuário | Front-end | Front-end | 12 | alta |
-| Matemática alta + análise + Python + insights | Ciência de Dados | Ciência de Dados | 13 | alta |
-| Pipelines + SQL + dados prontos | Eng. de Dados | Eng. de Dados | 12 | alta |
-| Segurança + Linux/Redes + proteção | Cibersegurança | Cibersegurança | 13 | alta |
-| Automação + contêineres + entrega contínua | DevOps | DevOps | 11 | alta |
-| Arquitetura + nuvem + infraestrutura | Cloud | Cloud | 10 | alta |
-| Apps móveis + Flutter/Kotlin | Mobile | Mobile | 10 | alta |
-| Testes + Python + qualidade | QA | QA | 14 | alta |
-| Produto + negócio alto + estratégia | Gestão de Produtos | Gestão de Produtos | 14 | alta |
-| *Ambíguo:* analisa dados, mas quer dados prontos (mat. média) | Eng. de Dados | Eng. de Dados | 7 | alta |
-| *Ambíguo:* gosta de layouts, mas para celular | Mobile | Mobile | 8 | alta |
-| *Ambíguo:* servidores + Linux + entrega rápida | DevOps | DevOps | 8 | alta |
-| *Ambíguo:* iniciante sem preferências marcantes | (qualquer) | Back-end | 5 | **baixa** |
+Os testes automatizados estão em `testes.py` (`python testes.py` ou `pytest testes.py`).
 
-As personas formais da Fase 4 ainda devem ser definidas e automatizadas em testes.
+### Personas principais
+
+| Persona | Perfil | Esperada | Obtida | Pontos | Confiança |
+|---|---|---|---|---|---|
+| Ana (analítica) | Adora estatística, trabalha com Python e quer prever comportamentos a partir de dados. | Ciência de Dados e Machine Learning | ✅ Ciência de Dados e Machine Learning | 13 | alta |
+| Bruno (infra/segurança) | Domina Linux e redes e gosta de procurar vulnerabilidades para proteger sistemas. | Cibersegurança (Security / Pentesting) | ✅ Cibersegurança (Security / Pentesting) | 13 | alta |
+| Carla (visual/front-end) | Gosta de criar interfaces bonitas em JavaScript, para a web, usadas direto pelo usuário. | Desenvolvimento Front-end & UI/UX | ✅ Desenvolvimento Front-end & UI/UX | 12 | alta |
+| Diego (negócios/produto) | Sem experiência em código, ama conversar com clientes e definir prioridades e estratégia. | Gestão de Produtos (Product Management) | ✅ Gestão de Produtos (Product Management) | 14 | alta |
+| Eduarda (pipelines) | Usa SQL e Python para mover, limpar e organizar dados para outros times. | Engenharia de Dados | ✅ Engenharia de Dados | 12 | alta |
+| Felipe (servidores/APIs) | Curte lógica de programação em Python, APIs e regras de negócio na web. | Desenvolvimento Back-end | ✅ Desenvolvimento Back-end | 9 | alta |
+| Gabriela (automação) | Gosta de automatizar build e deploy com contêineres e entregas frequentes. | DevOps & SRE | ✅ DevOps & SRE | 11 | alta |
+| Henrique (arquitetura) | Quer desenhar infraestruturas escaláveis e migrações em AWS/Azure/GCP. | Computação em Nuvem (Cloud Architecture) | ✅ Computação em Nuvem (Cloud Architecture) | 10 | alta |
+| Isabela (apps) | Quer criar aplicativos para celular usando Flutter ou Kotlin. | Desenvolvimento Mobile | ✅ Desenvolvimento Mobile | 10 | alta |
+| João (qualidade) | Gosta de caçar bugs, automatizar testes e garantir software confiável. | Engenharia de Qualidade e Testes (QA) | ✅ Engenharia de Qualidade e Testes (QA) | 14 | alta |
+
+### Casos de ambiguidade
+
+| Persona | Perfil | Esperada | Obtida | Pontos | Confiança |
+|---|---|---|---|---|---|
+| Karina (analisa dados, mas quer dados prontos) | Gosta de mexer em dados brutos, mas prefere entregar bases organizadas a criar modelos. | Engenharia de Dados | ✅ Engenharia de Dados | 7 | alta |
+| Lucas (layouts no celular) | Gosta de criar interfaces, mas para aplicativos de celular. | Desenvolvimento Mobile | ✅ Desenvolvimento Mobile | 8 | alta |
+| Marina (servidores e entrega rápida) | Mexe com servidores Linux e quer entregas rápidas e automatizadas. | DevOps & SRE | ✅ DevOps & SRE | 8 | alta |
+| Nando (matemática baixa, análise de dados) | Gosta de analisar dados brutos, mas tem pouca afinidade com matemática e quer dados prontos. | Engenharia de Dados | ✅ Engenharia de Dados | 9 | alta |
+
+### Perfil sem preferências marcantes
+
+Um iniciante que escolhe "algoritmos", mas não tem ferramenta nem plataforma definidas (`nenhuma` / `indiferente`), recebe **Desenvolvimento Back-end** com apenas 5 pontos e confiança **baixa**. O sistema sinaliza a incerteza e exibe a segunda opção.

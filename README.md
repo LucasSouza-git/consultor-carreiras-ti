@@ -20,14 +20,15 @@ Back-end · Front-end & UI/UX · Ciência de Dados e Machine Learning · Engenha
 
 ```
 consultor-carreiras-ti/
-├── app.py                 # interface Streamlit
-├── motor_inferencia.py    # catálogo de trilhas, fatos e regras (Experta)
+├── evidencias/            # capturas de tela da aplicação (prints)
+├── .gitignore             # arquivos ignorados pelo Git
+├── Mtriz-decisao.MD       # engenharia de conhecimento e tabela de regras
+├── README.md              # documentação do projeto
+├── app.py                 # interface web Streamlit
+├── motor_inferencia.py    # motor de inferência (catálogo de trilhas, fatos e regras)
 ├── perguntas.py           # perguntas e opções da entrevista
-├── testes.py              # validação das regras com personas
-├── matriz_decisao.md      # engenharia de conhecimento e tabela de regras
 ├── requirements.txt       # dependências
-├── README.md
-└── evidencias/            # capturas de tela dos testes
+└── testes.py              # testes das regras com personas
 ```
 
 ## Requisitos

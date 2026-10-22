@@ -105,4 +105,4 @@ Python 3.10+ · Experta · Streamlit · GitHub
 
 ## Autor
 
-[Seu nome] — Ciência da Computação, UNIPAC Barbacena
+Lucas de Souza Carmo — Ciência da Computação, UNIPAC Barbacena

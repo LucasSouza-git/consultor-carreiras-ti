@@ -1,0 +1,457 @@
+{
+  "versao": "1.0",
+  "descricao": "Características das 10 trilhas: competências de nível Júnior, certificações e projetos de portfólio.",
+  "ordem_radar": ["frontend", "mobile", "produto", "qa", "backend", "devops", "cloud", "ciberseguranca", "eng_dados", "ciencia_dados"],
+  "fases": {"1": "Fundamentos", "2": "Ferramentas e prática", "3": "Consolidação e portfólio"},
+  "pesos_competencia": {"3": "Essencial", "2": "Importante", "1": "Desejável"},
+  "aviso_certificacoes": "Nomes, códigos e versões de exames mudam com frequência. Confira sempre o site do emissor antes de se inscrever.",
+  "boas_praticas_github": ["Escreva um README claro: o que o projeto faz, como rodar e uma captura de tela ou demonstração.", "Faça commits pequenos, com mensagens que expliquem o que mudou.", "Use issues e pull requests, mesmo trabalhando sozinho, para mostrar organização.", "Inclua testes e, se possível, um pipeline de CI no GitHub Actions.", "Publique uma demonstração e coloque o link no repositório.", "Fixe no seu perfil os 4 a 6 melhores repositórios."],
+  "trilhas": {
+    "backend": {
+      "nome": "Desenvolvimento Back-end",
+      "curto": "Back-end",
+      "descricao": "Lógica de servidores, construção de APIs, regras de negócio e bancos de dados.",
+      "competencias_junior": [
+        {"id": "logica_prog", "nome": "Lógica de programação e estruturas de dados básicas", "fase": 1, "peso": 3, "horas": 40, "dica": "Resolva problemas com listas, pilhas, filas e dicionários em uma única linguagem."},
+        {"id": "linguagem_backend", "nome": "Uma linguagem de back-end (Python, Java, C#, Node.js ou Go)", "fase": 1, "peso": 3, "horas": 60, "dica": "Escolha uma só e avance até orientação a objetos, módulos e tratamento de erros."},
+        {"id": "git_github", "nome": "Git e GitHub", "fase": 1, "peso": 3, "horas": 12, "dica": "Domine commit, branch, pull request e resolução de conflitos. É a base do seu portfólio."},
+        {"id": "sql_modelagem", "nome": "SQL e modelagem relacional", "fase": 1, "peso": 3, "horas": 40, "dica": "Crie tabelas com chaves e relacionamentos e escreva consultas com JOIN e agregações."},
+        {"id": "http_rest", "nome": "HTTP e APIs REST", "fase": 2, "peso": 3, "horas": 30, "dica": "Aprenda verbos, status codes e construa uma API CRUD completa."},
+        {"id": "framework_web", "nome": "Um framework web (FastAPI, Django, Spring Boot, ASP.NET ou Express)", "fase": 2, "peso": 3, "horas": 50, "dica": "Use o framework da linguagem escolhida para rotas, validação e acesso a banco."},
+        {"id": "autenticacao", "nome": "Autenticação e autorização (JWT, OAuth2)", "fase": 2, "peso": 2, "horas": 20, "dica": "Implemente login, tokens e controle de acesso por perfil."},
+        {"id": "testes_auto", "nome": "Testes automatizados (unitários e de API)", "fase": 2, "peso": 2, "horas": 25, "dica": "Escreva testes para regras de negócio e para os endpoints principais."},
+        {"id": "docker", "nome": "Contêineres com Docker", "fase": 2, "peso": 2, "horas": 25, "dica": "Empacote uma aplicação em imagem, use volumes e docker compose com um banco de dados."},
+        {"id": "deploy_api", "nome": "Deploy de uma API em nuvem", "fase": 3, "peso": 1, "horas": 15, "dica": "Publique a API em um serviço gratuito ou barato e deixe o link no README."},
+        {"id": "nosql_cache", "nome": "NoSQL e cache (MongoDB, Redis)", "fase": 3, "peso": 1, "horas": 20, "dica": "Entenda quando usar cada um e implemente um cache simples."}
+      ],
+      "certificacoes": [
+        {"nome": "Meta Back-End Developer Professional Certificate", "emissor": "Meta (Coursera)", "nivel": "Iniciante", "a_partir_de_prontidao": 0, "nota": "Trilha guiada com projetos, Python, SQL e APIs."},
+        {"nome": "AWS Certified Cloud Practitioner", "emissor": "AWS", "nivel": "Iniciante", "a_partir_de_prontidao": 0, "nota": "Dá visão geral de nuvem, onde a maioria das APIs roda hoje."},
+        {"nome": "Microsoft Certified: Azure Developer Associate (AZ-204)", "emissor": "Microsoft", "nivel": "Intermediário", "a_partir_de_prontidao": 50, "nota": "Faz sentido se você pretende desenvolver sobre Azure."},
+        {"nome": "Oracle Certified Professional, Java SE Developer", "emissor": "Oracle", "nivel": "Intermediário", "a_partir_de_prontidao": 60, "nota": "Vale se a sua stack principal for Java. Confira a versão vigente do exame."}
+      ],
+      "projetos": [
+        {
+          "titulo": "API REST de tarefas com autenticação",
+          "nivel": "Básico",
+          "descricao": "CRUD de tarefas com login por JWT, banco relacional e documentação automática (OpenAPI).",
+          "tecnologias": ["Linguagem escolhida", "PostgreSQL", "JWT", "Swagger"]
+        },
+        {
+          "titulo": "API de e-commerce simplificada",
+          "nivel": "Intermediário",
+          "descricao": "Produtos, carrinho e pedidos com regras de negócio, testes automatizados e Docker.",
+          "tecnologias": ["Framework web", "SQL", "Pytest ou JUnit", "Docker"]
+        },
+        {
+          "titulo": "Encurtador de URLs com cache e métricas",
+          "nivel": "Intermediário",
+          "descricao": "Redirecionamento rápido com Redis, limite de requisições, contagem de acessos e deploy na nuvem.",
+          "tecnologias": ["Redis", "API REST", "Deploy em nuvem"]
+        }
+      ]
+    },
+    "frontend": {
+      "nome": "Desenvolvimento Front-end & UI/UX",
+      "curto": "Front-end",
+      "descricao": "Interfaces web responsivas, experiência do usuário e frameworks reativos.",
+      "competencias_junior": [
+        {"id": "html_css", "nome": "HTML semântico e CSS", "fase": 1, "peso": 3, "horas": 40, "dica": "Construa páginas só com HTML e CSS, cuidando da estrutura e da hierarquia visual."},
+        {"id": "js_fundamentos", "nome": "JavaScript moderno (ES6+)", "fase": 1, "peso": 3, "horas": 50, "dica": "Domine funções, arrays, módulos, promises e manipulação do DOM."},
+        {"id": "git_github", "nome": "Git e GitHub", "fase": 1, "peso": 3, "horas": 12, "dica": "Domine commit, branch, pull request e resolução de conflitos. É a base do seu portfólio."},
+        {"id": "layout_responsivo", "nome": "Layout responsivo com Flexbox e Grid", "fase": 1, "peso": 3, "horas": 25, "dica": "Faça a mesma página funcionar bem no celular e no computador."},
+        {"id": "framework_reativo", "nome": "Um framework reativo (React, Vue ou Angular)", "fase": 2, "peso": 3, "horas": 60, "dica": "Aprenda componentes, props, estado e roteamento em um único framework."},
+        {"id": "consumo_apis", "nome": "Consumo de APIs e estado assíncrono", "fase": 2, "peso": 3, "horas": 25, "dica": "Busque dados com fetch, trate carregamento e erros na interface."},
+        {"id": "acessibilidade", "nome": "Acessibilidade web (WCAG)", "fase": 2, "peso": 2, "horas": 15, "dica": "Use contraste, rótulos, foco por teclado e leitores de tela nos seus projetos."},
+        {"id": "ux_figma", "nome": "Fundamentos de UX e prototipagem (Figma)", "fase": 2, "peso": 2, "horas": 25, "dica": "Aprenda hierarquia, heurísticas de usabilidade e monte protótipos antes de codar."},
+        {"id": "typescript", "nome": "TypeScript", "fase": 3, "peso": 2, "horas": 30, "dica": "Adicione tipos a um projeto existente para ganhar segurança e autocompletar."},
+        {"id": "testes_front", "nome": "Testes de componentes (Jest, Testing Library)", "fase": 3, "peso": 1, "horas": 20, "dica": "Teste o comportamento visível do usuário, não detalhes internos."},
+        {"id": "performance_web", "nome": "Performance web e Core Web Vitals", "fase": 3, "peso": 1, "horas": 15, "dica": "Meça com o Lighthouse e otimize imagens, scripts e renderização."}
+      ],
+      "certificacoes": [
+        {"nome": "Meta Front-End Developer Professional Certificate", "emissor": "Meta (Coursera)", "nivel": "Iniciante", "a_partir_de_prontidao": 0, "nota": "Cobre HTML, CSS, JavaScript e React com projetos."},
+        {"nome": "Google UX Design Professional Certificate", "emissor": "Google (Coursera)", "nivel": "Iniciante", "a_partir_de_prontidao": 0, "nota": "Boa base de pesquisa, prototipagem e usabilidade."},
+        {"nome": "freeCodeCamp: Responsive Web Design e JavaScript", "emissor": "freeCodeCamp", "nivel": "Iniciante", "a_partir_de_prontidao": 0, "nota": "Gratuita e baseada em projetos."},
+        {"nome": "IAAP Web Accessibility Specialist (WAS)", "emissor": "IAAP", "nivel": "Avançado", "a_partir_de_prontidao": 70, "nota": "Diferencial para quem quer se especializar em acessibilidade."}
+      ],
+      "projetos": [
+        {
+          "titulo": "Página pessoal responsiva e acessível",
+          "nivel": "Básico",
+          "descricao": "Currículo online em HTML e CSS puros, que funcione bem no celular e no teclado.",
+          "tecnologias": ["HTML", "CSS", "GitHub Pages"]
+        },
+        {
+          "titulo": "App de clima ou filmes consumindo uma API pública",
+          "nivel": "Intermediário",
+          "descricao": "Busca, lista e detalhes com estados de carregamento e erro bem tratados.",
+          "tecnologias": ["React ou Vue", "API pública", "CSS responsivo"]
+        },
+        {
+          "titulo": "Dashboard interativo com gráficos e testes",
+          "nivel": "Intermediário",
+          "descricao": "Filtros e gráficos com TypeScript, testes de componentes e deploy publicado.",
+          "tecnologias": ["TypeScript", "Biblioteca de gráficos", "Testing Library", "Vercel ou Netlify"]
+        }
+      ]
+    },
+    "ciencia_dados": {
+      "nome": "Ciência de Dados e Machine Learning",
+      "curto": "Ciência de Dados",
+      "descricao": "Estatística, modelagem preditiva, análise de grandes massas de dados e inteligência artificial.",
+      "competencias_junior": [
+        {"id": "python_dados", "nome": "Python para análise de dados", "fase": 1, "peso": 3, "horas": 40, "dica": "Aprenda sintaxe, funções, listas, dicionários e notebooks Jupyter."},
+        {"id": "estatistica_base", "nome": "Estatística descritiva e inferencial", "fase": 1, "peso": 3, "horas": 50, "dica": "Estude média, variância, distribuições, intervalos de confiança e testes de hipótese."},
+        {"id": "algebra_prob", "nome": "Álgebra linear e probabilidade", "fase": 1, "peso": 2, "horas": 40, "dica": "Foque em vetores, matrizes e probabilidade condicional, que sustentam os modelos."},
+        {"id": "pandas_numpy", "nome": "Pandas e NumPy", "fase": 1, "peso": 3, "horas": 30, "dica": "Limpe, filtre, agrupe e una tabelas reais com Pandas."},
+        {"id": "sql_analise", "nome": "SQL para análise", "fase": 1, "peso": 3, "horas": 25, "dica": "Escreva consultas com JOIN, GROUP BY e funções de janela."},
+        {"id": "visualizacao", "nome": "Visualização de dados (Matplotlib, Seaborn, Power BI)", "fase": 2, "peso": 2, "horas": 20, "dica": "Escolha o gráfico certo para cada pergunta e conte uma história com ele."},
+        {"id": "ml_classico", "nome": "Machine Learning clássico com scikit-learn", "fase": 2, "peso": 3, "horas": 60, "dica": "Pratique regressão, classificação, árvores e agrupamento do começo ao fim."},
+        {"id": "avaliacao_modelos", "nome": "Validação e métricas de modelos", "fase": 2, "peso": 3, "horas": 25, "dica": "Separe treino e teste, use validação cruzada e entenda precisão, recall e erro."},
+        {"id": "git_github", "nome": "Git e GitHub", "fase": 2, "peso": 2, "horas": 12, "dica": "Versione notebooks e scripts e deixe os projetos reproduzíveis."},
+        {"id": "comunicacao_dados", "nome": "Comunicação de resultados (storytelling com dados)", "fase": 3, "peso": 2, "horas": 15, "dica": "Explique conclusões para quem não é técnico, com gráficos simples e linguagem direta."},
+        {"id": "deep_learning", "nome": "Redes neurais com PyTorch ou TensorFlow", "fase": 3, "peso": 1, "horas": 50, "dica": "Comece por uma rede simples de classificação antes de avançar."}
+      ],
+      "certificacoes": [
+        {"nome": "Google Data Analytics Professional Certificate", "emissor": "Google (Coursera)", "nivel": "Iniciante", "a_partir_de_prontidao": 0, "nota": "Boa porta de entrada para análise e visualização."},
+        {"nome": "IBM Data Science Professional Certificate", "emissor": "IBM (Coursera)", "nivel": "Iniciante", "a_partir_de_prontidao": 0, "nota": "Cobre Python, SQL, visualização e modelos básicos."},
+        {"nome": "Microsoft Certified: Azure Data Scientist Associate (DP-100)", "emissor": "Microsoft", "nivel": "Intermediário", "a_partir_de_prontidao": 50, "nota": "Para quem vai treinar e publicar modelos no Azure."},
+        {"nome": "AWS Certified Machine Learning Engineer – Associate", "emissor": "AWS", "nivel": "Intermediário", "a_partir_de_prontidao": 60, "nota": "Foca em colocar modelos em produção na AWS."}
+      ],
+      "projetos": [
+        {
+          "titulo": "Análise exploratória de um dataset público",
+          "nivel": "Básico",
+          "descricao": "Notebook narrado com perguntas, limpeza, gráficos e conclusões, usando dados do Kaggle ou do dados.gov.br.",
+          "tecnologias": ["Python", "Pandas", "Matplotlib"]
+        },
+        {
+          "titulo": "Modelo de previsão com validação e métricas",
+          "nivel": "Intermediário",
+          "descricao": "Prever, por exemplo, preço de imóveis ou cancelamento de clientes, comparando pelo menos dois modelos.",
+          "tecnologias": ["scikit-learn", "Validação cruzada", "Relatório em Markdown"]
+        },
+        {
+          "titulo": "Modelo publicado em app interativo",
+          "nivel": "Intermediário",
+          "descricao": "Coloque o modelo em uma interface web simples para qualquer pessoa testar.",
+          "tecnologias": ["Streamlit", "scikit-learn", "Deploy gratuito"]
+        }
+      ]
+    },
+    "eng_dados": {
+      "nome": "Engenharia de Dados",
+      "curto": "Eng. de Dados",
+      "descricao": "Arquitetura de dados, construção de pipelines (ETL/ELT) e infraestrutura para Data Lakes.",
+      "competencias_junior": [
+        {"id": "python_base", "nome": "Python para dados", "fase": 1, "peso": 3, "horas": 40, "dica": "Domine funções, arquivos, bibliotecas e tratamento de erros."},
+        {"id": "sql_avancado", "nome": "SQL avançado e modelagem dimensional", "fase": 1, "peso": 3, "horas": 50, "dica": "Pratique JOINs, CTEs, funções de janela e esquemas estrela."},
+        {"id": "linux_base", "nome": "Linux e linha de comando", "fase": 1, "peso": 3, "horas": 35, "dica": "Pratique navegação, permissões, processos, pacotes e edição de arquivos pelo terminal."},
+        {"id": "git_github", "nome": "Git e GitHub", "fase": 1, "peso": 3, "horas": 12, "dica": "Domine commit, branch, pull request e resolução de conflitos. É a base do seu portfólio."},
+        {"id": "etl_elt", "nome": "Conceitos de ETL/ELT e pipelines", "fase": 2, "peso": 3, "horas": 30, "dica": "Entenda extração, transformação e carga e as diferenças entre lote e tempo real."},
+        {"id": "orquestracao", "nome": "Orquestração com Airflow", "fase": 2, "peso": 3, "horas": 30, "dica": "Crie DAGs com dependências, agendamento e reprocessamento."},
+        {"id": "data_lake_warehouse", "nome": "Data Lakes e Data Warehouses", "fase": 2, "peso": 3, "horas": 30, "dica": "Compare arquiteturas e organize camadas bronze, prata e ouro."},
+        {"id": "spark", "nome": "Processamento distribuído com Spark", "fase": 2, "peso": 2, "horas": 40, "dica": "Use PySpark para transformar volumes que não cabem em uma só máquina."},
+        {"id": "cloud_dados", "nome": "Armazenamento e serviços de dados na nuvem", "fase": 3, "peso": 2, "horas": 30, "dica": "Pratique com buckets e um serviço de dados em AWS, Azure ou GCP."},
+        {"id": "docker", "nome": "Contêineres com Docker", "fase": 2, "peso": 2, "horas": 25, "dica": "Empacote uma aplicação em imagem, use volumes e docker compose com um banco de dados."},
+        {"id": "qualidade_dados", "nome": "Qualidade e transformação com dbt", "fase": 3, "peso": 1, "horas": 20, "dica": "Aplique testes de qualidade e documentação às suas tabelas."},
+        {"id": "streaming", "nome": "Streaming com Kafka", "fase": 3, "peso": 1, "horas": 30, "dica": "Entenda tópicos, produtores e consumidores em um exemplo pequeno."}
+      ],
+      "certificacoes": [
+        {"nome": "Meta Database Engineer Professional Certificate", "emissor": "Meta (Coursera)", "nivel": "Iniciante", "a_partir_de_prontidao": 0, "nota": "Reforça bancos de dados e SQL para quem está começando."},
+        {"nome": "Microsoft Certified: Fabric Data Engineer Associate (DP-700)", "emissor": "Microsoft", "nivel": "Intermediário", "a_partir_de_prontidao": 50, "nota": "Substitui a antiga certificação Azure Data Engineer (DP-203), já descontinuada."},
+        {"nome": "AWS Certified Data Engineer – Associate", "emissor": "AWS", "nivel": "Intermediário", "a_partir_de_prontidao": 50, "nota": "Cobre ingestão, transformação e armazenamento na AWS."},
+        {"nome": "Databricks Certified Data Engineer Associate", "emissor": "Databricks", "nivel": "Intermediário", "a_partir_de_prontidao": 50, "nota": "Útil se a empresa usa Spark e Lakehouse."},
+        {"nome": "Google Cloud Professional Data Engineer", "emissor": "Google Cloud", "nivel": "Avançado", "a_partir_de_prontidao": 75, "nota": "Reconhecida, mas exige experiência prática."}
+      ],
+      "projetos": [
+        {
+          "titulo": "Pipeline ETL de uma API pública para um banco relacional",
+          "nivel": "Básico",
+          "descricao": "Extrai dados de uma API, trata e carrega em PostgreSQL de forma agendada.",
+          "tecnologias": ["Python", "PostgreSQL", "Cron ou Airflow"]
+        },
+        {
+          "titulo": "Pipeline orquestrado com transformação em dbt",
+          "nivel": "Intermediário",
+          "descricao": "DAG no Airflow, modelos em dbt, testes de qualidade e documentação.",
+          "tecnologias": ["Airflow", "dbt", "SQL", "Docker"]
+        },
+        {
+          "titulo": "Mini data lake com camadas bronze, prata e ouro",
+          "nivel": "Intermediário",
+          "descricao": "Armazene dados brutos na nuvem, refine em camadas e consulte com SQL.",
+          "tecnologias": ["Armazenamento em nuvem", "Parquet", "Spark ou DuckDB"]
+        }
+      ]
+    },
+    "ciberseguranca": {
+      "nome": "Cibersegurança (Security / Pentesting)",
+      "curto": "Segurança",
+      "descricao": "Defesa cibernética, análise de vulnerabilidades, criptografia e redes seguras.",
+      "competencias_junior": [
+        {"id": "redes_base", "nome": "Redes de computadores (TCP/IP, DNS, HTTP)", "fase": 1, "peso": 3, "horas": 45, "dica": "Entenda endereçamento IP, portas, DNS e o caminho de uma requisição HTTP."},
+        {"id": "linux_base", "nome": "Linux e linha de comando", "fase": 1, "peso": 3, "horas": 35, "dica": "Pratique navegação, permissões, processos, pacotes e edição de arquivos pelo terminal."},
+        {"id": "fundamentos_seg", "nome": "Fundamentos de segurança (tríade CIA, ameaças e riscos)", "fase": 1, "peso": 3, "horas": 25, "dica": "Entenda confidencialidade, integridade, disponibilidade e como riscos são avaliados."},
+        {"id": "scripting", "nome": "Scripts em Python ou Bash", "fase": 1, "peso": 2, "horas": 30, "dica": "Automatize tarefas repetitivas, como varrer logs e testar portas."},
+        {"id": "criptografia", "nome": "Criptografia: hash, chaves e certificados", "fase": 2, "peso": 3, "horas": 25, "dica": "Diferencie hash, criptografia simétrica e assimétrica e entenda TLS."},
+        {"id": "owasp", "nome": "Vulnerabilidades web e OWASP Top 10", "fase": 2, "peso": 3, "horas": 35, "dica": "Estude injeção de SQL, XSS e falhas de autenticação em ambientes de treino."},
+        {"id": "ferramentas_seg", "nome": "Nmap, Wireshark e Burp Suite", "fase": 2, "peso": 3, "horas": 30, "dica": "Aprenda a mapear uma rede, capturar tráfego e interceptar requisições."},
+        {"id": "hardening", "nome": "Hardening e controle de acesso", "fase": 2, "peso": 2, "horas": 20, "dica": "Aplique o princípio do menor privilégio e endureça um servidor Linux."},
+        {"id": "labs_ctf", "nome": "Prática em laboratórios e CTFs", "fase": 3, "peso": 3, "horas": 50, "dica": "Use TryHackMe ou Hack The Box de forma regular e documente o que aprender."},
+        {"id": "normas_seg", "nome": "Frameworks e normas (ISO 27001, NIST e LGPD)", "fase": 3, "peso": 1, "horas": 20, "dica": "Conheça a estrutura básica e o vocabulário que as empresas usam."},
+        {"id": "siem", "nome": "Monitoramento e resposta a incidentes (SIEM)", "fase": 3, "peso": 1, "horas": 25, "dica": "Entenda logs, alertas e as etapas de resposta a um incidente."}
+      ],
+      "certificacoes": [
+        {"nome": "ISC2 Certified in Cybersecurity (CC)", "emissor": "ISC2", "nivel": "Iniciante", "a_partir_de_prontidao": 0, "nota": "Certificação de entrada, boa para validar o básico."},
+        {"nome": "CompTIA Security+", "emissor": "CompTIA", "nivel": "Intermediário", "a_partir_de_prontidao": 40, "nota": "Muito pedida em vagas júnior. Confira o código do exame vigente."},
+        {"nome": "eJPT (eLearnSecurity Junior Penetration Tester)", "emissor": "INE", "nivel": "Intermediário", "a_partir_de_prontidao": 40, "nota": "Prática e focada em pentest para quem está começando."},
+        {"nome": "Certified Ethical Hacker (CEH)", "emissor": "EC-Council", "nivel": "Intermediário", "a_partir_de_prontidao": 60, "nota": "Conhecida em processos seletivos, mas mais teórica."},
+        {"nome": "OSCP (OffSec Certified Professional)", "emissor": "OffSec", "nivel": "Avançado", "a_partir_de_prontidao": 85, "nota": "Muito respeitada e exige bastante prática em laboratório."}
+      ],
+      "projetos": [
+        {
+          "titulo": "Repositório de writeups de laboratórios",
+          "nivel": "Básico",
+          "descricao": "Documente passo a passo as salas e máquinas que você resolver, sem expor flags de desafios ativos.",
+          "tecnologias": ["TryHackMe ou Hack The Box", "Markdown"]
+        },
+        {
+          "titulo": "Scanner de portas e relatório em Python",
+          "nivel": "Intermediário",
+          "descricao": "Ferramenta para uso ético, em ambiente próprio, que varre portas e gera relatório.",
+          "tecnologias": ["Python", "Sockets", "Relatório HTML"]
+        },
+        {
+          "titulo": "Análise de vulnerabilidades de uma aplicação de treino",
+          "nivel": "Intermediário",
+          "descricao": "Ataque uma aplicação como DVWA ou Juice Shop, em ambiente local, e escreva o relatório com correções.",
+          "tecnologias": ["DVWA ou Juice Shop", "Burp Suite", "Relatório técnico"]
+        }
+      ]
+    },
+    "devops": {
+      "nome": "DevOps & SRE",
+      "curto": "DevOps",
+      "descricao": "Automação de processos, integração e entrega contínua (CI/CD) e contêineres.",
+      "competencias_junior": [
+        {"id": "linux_base", "nome": "Linux e linha de comando", "fase": 1, "peso": 3, "horas": 35, "dica": "Pratique navegação, permissões, processos, pacotes e edição de arquivos pelo terminal."},
+        {"id": "redes_basico", "nome": "Redes básicas (IP, DNS, portas e HTTP)", "fase": 1, "peso": 2, "horas": 25, "dica": "Entenda como serviços se comunicam e como diagnosticar falhas simples."},
+        {"id": "git_github", "nome": "Git e GitHub", "fase": 1, "peso": 3, "horas": 12, "dica": "Domine commit, branch, pull request e resolução de conflitos. É a base do seu portfólio."},
+        {"id": "scripting", "nome": "Shell script e Python", "fase": 1, "peso": 3, "horas": 30, "dica": "Automatize tarefas de administração e leitura de logs."},
+        {"id": "docker", "nome": "Contêineres com Docker", "fase": 2, "peso": 3, "horas": 30, "dica": "Crie imagens, use volumes e redes e orquestre com docker compose."},
+        {"id": "ci_cd", "nome": "CI/CD com GitHub Actions ou GitLab CI", "fase": 2, "peso": 3, "horas": 30, "dica": "Monte um pipeline que testa, constrói a imagem e publica a aplicação."},
+        {"id": "iac", "nome": "Infraestrutura como código com Terraform", "fase": 2, "peso": 3, "horas": 35, "dica": "Provisione recursos na nuvem por código e guarde o estado com segurança."},
+        {"id": "cloud_basica", "nome": "Fundamentos de nuvem (AWS, Azure ou GCP)", "fase": 2, "peso": 3, "horas": 40, "dica": "Aprenda computação, rede, armazenamento e permissões em um provedor."},
+        {"id": "kubernetes", "nome": "Kubernetes básico", "fase": 3, "peso": 2, "horas": 40, "dica": "Entenda pods, deployments e serviços e rode um cluster local."},
+        {"id": "observabilidade", "nome": "Monitoramento e observabilidade (Prometheus e Grafana)", "fase": 3, "peso": 2, "horas": 25, "dica": "Colete métricas, crie painéis e configure um alerta simples."},
+        {"id": "ansible", "nome": "Gerência de configuração (Ansible)", "fase": 3, "peso": 1, "horas": 20, "dica": "Automatize a configuração de servidores com playbooks."}
+      ],
+      "certificacoes": [
+        {"nome": "Linux Foundation Certified IT Associate (LFCA)", "emissor": "Linux Foundation", "nivel": "Iniciante", "a_partir_de_prontidao": 0, "nota": "Valida a base de Linux, nuvem e segurança."},
+        {"nome": "Microsoft Azure Fundamentals (AZ-900)", "emissor": "Microsoft", "nivel": "Iniciante", "a_partir_de_prontidao": 0, "nota": "Visão geral de nuvem, sem exigir experiência."},
+        {"nome": "HashiCorp Certified: Terraform Associate", "emissor": "HashiCorp", "nivel": "Intermediário", "a_partir_de_prontidao": 50, "nota": "Valida infraestrutura como código."},
+        {"nome": "Certified Kubernetes Application Developer (CKAD)", "emissor": "CNCF", "nivel": "Intermediário", "a_partir_de_prontidao": 60, "nota": "Prova prática focada em aplicações no Kubernetes."},
+        {"nome": "Certified Kubernetes Administrator (CKA)", "emissor": "CNCF", "nivel": "Avançado", "a_partir_de_prontidao": 75, "nota": "Prova prática de administração de clusters."}
+      ],
+      "projetos": [
+        {
+          "titulo": "Pipeline CI/CD que testa e publica uma imagem Docker",
+          "nivel": "Básico",
+          "descricao": "A cada push, rode os testes, construa a imagem e publique em um registro.",
+          "tecnologias": ["GitHub Actions", "Docker", "Registro de imagens"]
+        },
+        {
+          "titulo": "Infraestrutura como código para uma aplicação na nuvem",
+          "nivel": "Intermediário",
+          "descricao": "Terraform cria rede, servidor e banco, e a aplicação é publicada automaticamente.",
+          "tecnologias": ["Terraform", "Provedor de nuvem", "CI/CD"]
+        },
+        {
+          "titulo": "Stack de observabilidade para uma aplicação",
+          "nivel": "Intermediário",
+          "descricao": "Prometheus coleta métricas, Grafana exibe painéis e um alerta avisa quando algo falha.",
+          "tecnologias": ["Prometheus", "Grafana", "Docker Compose"]
+        }
+      ]
+    },
+    "cloud": {
+      "nome": "Computação em Nuvem (Cloud Architecture)",
+      "curto": "Cloud",
+      "descricao": "Planejamento, migração e gestão de infraestruturas escaláveis (AWS/Azure/GCP).",
+      "competencias_junior": [
+        {"id": "redes_base", "nome": "Redes de computadores (TCP/IP, DNS, HTTP)", "fase": 1, "peso": 3, "horas": 45, "dica": "Entenda endereçamento IP, portas, DNS e o caminho de uma requisição HTTP."},
+        {"id": "linux_base", "nome": "Linux e linha de comando", "fase": 1, "peso": 3, "horas": 35, "dica": "Pratique navegação, permissões, processos, pacotes e edição de arquivos pelo terminal."},
+        {"id": "conceitos_cloud", "nome": "Conceitos de nuvem (IaaS, PaaS, SaaS, regiões e zonas)", "fase": 1, "peso": 3, "horas": 20, "dica": "Entenda o modelo de responsabilidade compartilhada e quando usar cada serviço."},
+        {"id": "plataforma_cloud", "nome": "Uma nuvem pública a fundo (AWS, Azure ou GCP)", "fase": 2, "peso": 3, "horas": 70, "dica": "Escolha uma e use o console e a linha de comando em projetos reais."},
+        {"id": "compute_storage", "nome": "Computação, armazenamento e redes na nuvem", "fase": 2, "peso": 3, "horas": 40, "dica": "Crie máquinas virtuais, buckets e redes privadas com sub-redes."},
+        {"id": "iam_nuvem", "nome": "Identidade, permissões e segurança na nuvem", "fase": 2, "peso": 3, "horas": 25, "dica": "Aplique o menor privilégio, use papéis e proteja credenciais."},
+        {"id": "iac", "nome": "Infraestrutura como código (Terraform)", "fase": 2, "peso": 2, "horas": 35, "dica": "Descreva a infraestrutura em código e reproduza ambientes."},
+        {"id": "arq_escalavel", "nome": "Arquiteturas escaláveis e alta disponibilidade", "fase": 2, "peso": 3, "horas": 40, "dica": "Estude balanceamento, autoescalonamento, filas e bancos gerenciados."},
+        {"id": "finops", "nome": "Custos e boas práticas de FinOps", "fase": 3, "peso": 2, "horas": 15, "dica": "Estime custos, use alertas de orçamento e desligue o que não usa."},
+        {"id": "migracao", "nome": "Estratégias de migração para a nuvem", "fase": 3, "peso": 2, "horas": 20, "dica": "Conheça rehost, replatform e refactor e quando aplicar cada um."},
+        {"id": "containers_k8s", "nome": "Contêineres e Kubernetes básico", "fase": 3, "peso": 2, "horas": 30, "dica": "Rode uma aplicação em contêiner em um serviço gerenciado."}
+      ],
+      "certificacoes": [
+        {"nome": "AWS Certified Cloud Practitioner", "emissor": "AWS", "nivel": "Iniciante", "a_partir_de_prontidao": 0, "nota": "Porta de entrada para entender serviços e custos."},
+        {"nome": "Microsoft Azure Fundamentals (AZ-900)", "emissor": "Microsoft", "nivel": "Iniciante", "a_partir_de_prontidao": 0, "nota": "Equivalente de entrada para o ecossistema Azure."},
+        {"nome": "AWS Certified Solutions Architect – Associate", "emissor": "AWS", "nivel": "Intermediário", "a_partir_de_prontidao": 50, "nota": "Uma das mais pedidas para arquitetura em nuvem."},
+        {"nome": "Microsoft Certified: Azure Administrator Associate (AZ-104)", "emissor": "Microsoft", "nivel": "Intermediário", "a_partir_de_prontidao": 50, "nota": "Foca em administrar recursos no Azure."},
+        {"nome": "Google Cloud Professional Cloud Architect", "emissor": "Google Cloud", "nivel": "Avançado", "a_partir_de_prontidao": 75, "nota": "Exige experiência prática em desenho de soluções."}
+      ],
+      "projetos": [
+        {
+          "titulo": "Site estático na nuvem com CDN e domínio",
+          "nivel": "Básico",
+          "descricao": "Hospede um site em armazenamento de objetos, com HTTPS e cache global.",
+          "tecnologias": ["Armazenamento de objetos", "CDN", "DNS"]
+        },
+        {
+          "titulo": "Arquitetura em três camadas documentada",
+          "nivel": "Intermediário",
+          "descricao": "Balanceador, aplicação e banco gerenciado, com diagrama e infraestrutura como código.",
+          "tecnologias": ["Terraform", "Balanceador de carga", "Banco gerenciado", "Diagrama"]
+        },
+        {
+          "titulo": "Estudo de migração com estimativa de custos",
+          "nivel": "Intermediário",
+          "descricao": "Pegue uma aplicação fictícia, proponha a estratégia de migração e compare os custos.",
+          "tecnologias": ["Calculadora de preços", "Documento de arquitetura"]
+        }
+      ]
+    },
+    "mobile": {
+      "nome": "Desenvolvimento Mobile",
+      "curto": "Mobile",
+      "descricao": "Ecossistema de dispositivos móveis (nativo ou multiplataforma com Flutter/React Native).",
+      "nota_certificacoes": "A certificação Associate Android Developer, do Google, foi descontinuada. Em mobile, apps publicados e código no GitHub costumam pesar mais que certificados.",
+      "competencias_junior": [
+        {"id": "poo", "nome": "Programação orientada a objetos", "fase": 1, "peso": 3, "horas": 40, "dica": "Pratique classes, herança, interfaces e composição na linguagem escolhida."},
+        {"id": "git_github", "nome": "Git e GitHub", "fase": 1, "peso": 3, "horas": 12, "dica": "Domine commit, branch, pull request e resolução de conflitos. É a base do seu portfólio."},
+        {"id": "linguagem_mobile", "nome": "Uma linguagem mobile (Kotlin, Swift, Dart ou TypeScript)", "fase": 1, "peso": 3, "horas": 60, "dica": "Escolha a linguagem da plataforma que você quer atingir primeiro."},
+        {"id": "ui_mobile", "nome": "Interfaces mobile e navegação", "fase": 2, "peso": 3, "horas": 40, "dica": "Monte telas, listas, formulários e navegação entre telas."},
+        {"id": "framework_mobile", "nome": "Android nativo, iOS nativo, Flutter ou React Native", "fase": 2, "peso": 3, "horas": 70, "dica": "Escolha um caminho e conclua um app completo antes de trocar."},
+        {"id": "api_persistencia", "nome": "Consumo de APIs e persistência local", "fase": 2, "peso": 3, "horas": 30, "dica": "Busque dados em uma API e guarde o essencial no aparelho para uso offline."},
+        {"id": "estado_arquitetura", "nome": "Gerenciamento de estado e arquitetura (MVVM)", "fase": 2, "peso": 2, "horas": 30, "dica": "Separe interface, estado e regras para o app crescer sem virar bagunça."},
+        {"id": "design_mobile", "nome": "Design para mobile (Material Design e HIG)", "fase": 2, "peso": 2, "horas": 20, "dica": "Siga as diretrizes visuais de cada plataforma."},
+        {"id": "testes_mobile", "nome": "Testes em apps mobile", "fase": 3, "peso": 1, "horas": 20, "dica": "Escreva testes de unidade e de interface para os fluxos principais."},
+        {"id": "publicacao", "nome": "Publicação na Play Store ou na App Store", "fase": 3, "peso": 2, "horas": 20, "dica": "Aprenda assinatura, versões e revisão da loja."},
+        {"id": "recursos_dispositivo", "nome": "Recursos do aparelho e notificações push", "fase": 3, "peso": 1, "horas": 20, "dica": "Use câmera, localização e notificações de forma responsável."}
+      ],
+      "certificacoes": [
+        {"nome": "Meta Android Developer Professional Certificate", "emissor": "Meta (Coursera)", "nivel": "Iniciante", "a_partir_de_prontidao": 0, "nota": "Indicada se o foco for Android com Kotlin."},
+        {"nome": "Meta iOS Developer Professional Certificate", "emissor": "Meta (Coursera)", "nivel": "Iniciante", "a_partir_de_prontidao": 0, "nota": "Indicada se o foco for iOS com Swift."}
+      ],
+      "projetos": [
+        {
+          "titulo": "App de lista de tarefas com armazenamento local",
+          "nivel": "Básico",
+          "descricao": "Cadastro, edição e conclusão de tarefas, com dados guardados no aparelho.",
+          "tecnologias": ["Linguagem mobile", "Banco local"]
+        },
+        {
+          "titulo": "App que consome uma API pública",
+          "nivel": "Intermediário",
+          "descricao": "Lista e detalhe com navegação, estados de carregamento e tratamento de erro.",
+          "tecnologias": ["Flutter, React Native ou nativo", "API pública"]
+        },
+        {
+          "titulo": "App publicado ou pronto para publicação",
+          "nivel": "Intermediário",
+          "descricao": "Login, notificações e identidade visual, com os passos de publicação documentados.",
+          "tecnologias": ["Autenticação", "Notificações push", "Loja de apps"]
+        }
+      ]
+    },
+    "qa": {
+      "nome": "Engenharia de Qualidade e Testes (QA)",
+      "curto": "QA",
+      "descricao": "Testes automatizados, confiabilidade de software e processos de qualidade.",
+      "competencias_junior": [
+        {"id": "fund_teste", "nome": "Fundamentos de teste de software (tipos, níveis e técnicas)", "fase": 1, "peso": 3, "horas": 30, "dica": "Diferencie teste unitário, de integração, de sistema e de aceitação."},
+        {"id": "logica_prog", "nome": "Lógica de programação básica", "fase": 1, "peso": 3, "horas": 40, "dica": "Aprenda variáveis, condições, laços e funções em Python ou JavaScript."},
+        {"id": "git_github", "nome": "Git e GitHub", "fase": 1, "peso": 3, "horas": 12, "dica": "Domine commit, branch, pull request e resolução de conflitos. É a base do seu portfólio."},
+        {"id": "casos_teste", "nome": "Casos de teste e relatório de bugs", "fase": 1, "peso": 3, "horas": 20, "dica": "Escreva casos claros, com passos e resultado esperado, e reporte bugs reproduzíveis."},
+        {"id": "sql_basico", "nome": "SQL básico", "fase": 1, "peso": 2, "horas": 20, "dica": "Consulte o banco para validar dados durante os testes."},
+        {"id": "testes_api", "nome": "Testes de API (Postman)", "fase": 2, "peso": 3, "horas": 25, "dica": "Monte coleções com verificações automáticas de status e corpo da resposta."},
+        {"id": "automacao_web", "nome": "Automação de testes web (Playwright, Cypress ou Selenium)", "fase": 2, "peso": 3, "horas": 50, "dica": "Automatize os fluxos críticos de um site, com seletores estáveis."},
+        {"id": "linguagem_automacao", "nome": "Python ou JavaScript para automação", "fase": 2, "peso": 3, "horas": 40, "dica": "Use a linguagem para organizar testes, dados e relatórios."},
+        {"id": "ageis", "nome": "Metodologias ágeis (Scrum e Kanban)", "fase": 2, "peso": 2, "horas": 15, "dica": "Entenda o papel da qualidade dentro de sprints e cerimônias."},
+        {"id": "ci_testes", "nome": "Testes em pipelines de CI", "fase": 3, "peso": 2, "horas": 20, "dica": "Execute a suíte de testes a cada alteração no GitHub Actions."},
+        {"id": "testes_performance", "nome": "Testes de performance (k6 ou JMeter)", "fase": 3, "peso": 1, "horas": 20, "dica": "Simule carga em uma API e interprete tempo de resposta e erros."},
+        {"id": "bdd", "nome": "BDD com Gherkin e Cucumber", "fase": 3, "peso": 1, "horas": 15, "dica": "Escreva cenários legíveis por pessoas de negócio."}
+      ],
+      "certificacoes": [
+        {"nome": "ISTQB Certified Tester Foundation Level (CTFL)", "emissor": "ISTQB (BSTQB no Brasil)", "nivel": "Iniciante", "a_partir_de_prontidao": 0, "nota": "Padrão internacional, muito citado em vagas de QA."},
+        {"nome": "Professional Scrum Master I (PSM I)", "emissor": "Scrum.org", "nivel": "Iniciante", "a_partir_de_prontidao": 0, "nota": "Ajuda a entender o contexto ágil em que o QA trabalha."},
+        {"nome": "ISTQB Agile Tester Extension (CTFL-AT)", "emissor": "ISTQB (BSTQB no Brasil)", "nivel": "Intermediário", "a_partir_de_prontidao": 40, "nota": "Aprofunda testes em times ágeis."},
+        {"nome": "ISTQB Test Automation Engineer (CTAL-TAE)", "emissor": "ISTQB (BSTQB no Brasil)", "nivel": "Intermediário", "a_partir_de_prontidao": 60, "nota": "Foca em arquitetura e estratégia de automação."}
+      ],
+      "projetos": [
+        {
+          "titulo": "Plano e casos de teste de um app real",
+          "nivel": "Básico",
+          "descricao": "Escolha um app ou site conhecido, escreva casos de teste e um relatório de bugs encontrados.",
+          "tecnologias": ["Planilha ou Markdown", "Casos de teste"]
+        },
+        {
+          "titulo": "Suíte de testes de API integrada ao CI",
+          "nivel": "Intermediário",
+          "descricao": "Testes automáticos de uma API pública ou própria, rodando a cada push.",
+          "tecnologias": ["Postman ou Pytest", "GitHub Actions"]
+        },
+        {
+          "titulo": "Framework de automação E2E com relatórios",
+          "nivel": "Intermediário",
+          "descricao": "Testes ponta a ponta de um site, organizados com padrão Page Object e relatório HTML.",
+          "tecnologias": ["Playwright ou Cypress", "Page Object", "Relatório"]
+        }
+      ]
+    },
+    "produto": {
+      "nome": "Gestão de Produtos (Product Management)",
+      "curto": "Produto",
+      "descricao": "Ponte entre negócio, design e desenvolvimento, metodologias ágeis e priorização de produto.",
+      "competencias_junior": [
+        {"id": "fund_produto", "nome": "Fundamentos de produto (ciclo de vida, discovery e delivery)", "fase": 1, "peso": 3, "horas": 30, "dica": "Entenda o ciclo completo, da descoberta do problema à entrega e à medição."},
+        {"id": "ageis", "nome": "Metodologias ágeis (Scrum e Kanban)", "fase": 1, "peso": 3, "horas": 25, "dica": "Participe de cerimônias, entenda papéis e mantenha um backlog saudável."},
+        {"id": "pesquisa_usuario", "nome": "Pesquisa com usuários e entrevistas", "fase": 1, "peso": 3, "horas": 25, "dica": "Aprenda a fazer perguntas abertas e a transformar relatos em problemas claros."},
+        {"id": "user_stories", "nome": "User stories e critérios de aceite", "fase": 1, "peso": 3, "horas": 15, "dica": "Escreva histórias com valor claro e critérios que o time consiga testar."},
+        {"id": "ferramentas_gestao", "nome": "Ferramentas de gestão (Jira, Notion ou Trello)", "fase": 1, "peso": 1, "horas": 10, "dica": "Organize backlog, quadro e roadmap em uma ferramenta."},
+        {"id": "priorizacao", "nome": "Priorização (RICE, MoSCoW e roadmap)", "fase": 2, "peso": 3, "horas": 20, "dica": "Aplique um método e explique por que algo vem antes de outra coisa."},
+        {"id": "metricas", "nome": "Métricas de produto (AARRR, OKRs e NPS)", "fase": 2, "peso": 3, "horas": 30, "dica": "Defina métricas de sucesso antes de construir e acompanhe depois."},
+        {"id": "dados_basicos", "nome": "SQL e análise de dados básica", "fase": 2, "peso": 2, "horas": 30, "dica": "Consulte dados por conta própria para apoiar decisões."},
+        {"id": "prototipagem", "nome": "Prototipagem e noções de design (Figma)", "fase": 2, "peso": 2, "horas": 20, "dica": "Monte protótipos clicáveis para validar ideias com usuários."},
+        {"id": "stakeholders", "nome": "Comunicação e gestão de stakeholders", "fase": 2, "peso": 3, "horas": 20, "dica": "Treine alinhar expectativas, dizer não com argumentos e apresentar decisões."},
+        {"id": "noc_tecnicas", "nome": "Noções de arquitetura de software e APIs", "fase": 2, "peso": 2, "horas": 25, "dica": "Entenda o suficiente para conversar com o time de engenharia."},
+        {"id": "estrategia", "nome": "Modelos de negócio e estratégia (Canvas)", "fase": 3, "peso": 2, "horas": 20, "dica": "Relacione o produto com o modelo de negócio e a estratégia da empresa."}
+      ],
+      "certificacoes": [
+        {"nome": "Professional Scrum Product Owner I (PSPO I)", "emissor": "Scrum.org", "nivel": "Iniciante", "a_partir_de_prontidao": 0, "nota": "Valida o papel de Product Owner em times ágeis."},
+        {"nome": "Certified Scrum Product Owner (CSPO)", "emissor": "Scrum Alliance", "nivel": "Iniciante", "a_partir_de_prontidao": 0, "nota": "Alternativa ao PSPO, com curso obrigatório."},
+        {"nome": "Google Project Management Professional Certificate", "emissor": "Google (Coursera)", "nivel": "Iniciante", "a_partir_de_prontidao": 0, "nota": "Boa base de planejamento e metodologias."},
+        {"nome": "SAFe Product Owner/Product Manager (POPM)", "emissor": "Scaled Agile", "nivel": "Intermediário", "a_partir_de_prontidao": 50, "nota": "Faz sentido em empresas grandes que usam SAFe."}
+      ],
+      "projetos": [
+        {
+          "titulo": "Estudo de caso de discovery de um produto",
+          "nivel": "Básico",
+          "descricao": "Pesquise usuários de um app, descreva personas e problemas e proponha oportunidades.",
+          "tecnologias": ["Entrevistas", "Personas", "Markdown no GitHub"]
+        },
+        {
+          "titulo": "Roadmap e backlog priorizado de um produto fictício",
+          "nivel": "Intermediário",
+          "descricao": "Backlog com user stories e critérios de aceite, priorizado com RICE e exportado para o repositório.",
+          "tecnologias": ["Notion ou Jira", "RICE", "User stories"]
+        },
+        {
+          "titulo": "Protótipo clicável validado com usuários",
+          "nivel": "Intermediário",
+          "descricao": "Protótipo no Figma, testes com pessoas reais e métricas de sucesso definidas.",
+          "tecnologias": ["Figma", "Teste de usabilidade", "Métricas"]
+        }
+      ]
+    }
+  }
+}

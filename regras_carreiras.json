@@ -1,0 +1,439 @@
+{
+  "versao": "1.0",
+  "descricao": "Base de conhecimento do Consultor Avançado de Carreiras em TI. Edite este arquivo para mudar perguntas, pesos e regras sem mexer no código.",
+  "parametros": {
+    "limiar_empate_pp": 5,
+    "limiar_fraco_pct": 45,
+    "media_alta_geral": 4.5,
+    "media_baixa_geral": 1.8,
+    "faixas_compatibilidade": [
+      {"min": 80, "rotulo": "Muito compatível"},
+      {"min": 60, "rotulo": "Compatível"},
+      {"min": 40, "rotulo": "Parcialmente compatível"},
+      {"min": 0, "rotulo": "Pouco compatível"}
+    ],
+    "escala_likert": {"1": "Nenhuma", "2": "Pouca", "3": "Moderada", "4": "Boa", "5": "Muita"}
+  },
+  "passos": [
+    {
+      "id": "perfil",
+      "titulo": "Perfil pessoal",
+      "descricao": "Conte de onde você está partindo.",
+      "telas": [
+        {
+          "titulo": "Seu ponto de partida",
+          "perguntas": ["experiencia", "horas_semana", "ferramenta"]
+        }
+      ]
+    },
+    {
+      "id": "afinidades",
+      "titulo": "Afinidades técnicas",
+      "descricao": "Dê uma nota de 1 a 5 para cada atividade, de acordo com o quanto você gosta ou tem facilidade.",
+      "telas": [
+        {
+          "titulo": "Raciocínio e dados",
+          "perguntas": ["matematica", "logica", "analise_dados", "pipelines"]
+        },
+        {
+          "titulo": "Construção de produtos",
+          "perguntas": ["apis_bd", "design", "mobile", "gestao"]
+        },
+        {
+          "titulo": "Infraestrutura, qualidade e segurança",
+          "perguntas": ["infra", "nuvem", "automacao", "seguranca", "testes"]
+        }
+      ]
+    },
+    {
+      "id": "objetivos",
+      "titulo": "Objetivos de carreira",
+      "descricao": "Agora, para onde você quer ir.",
+      "telas": [
+        {
+          "titulo": "Para onde você quer ir",
+          "perguntas": ["objetivo", "entrega", "ambiente"]
+        }
+      ]
+    }
+  ],
+  "perguntas": {
+    "experiencia": {
+      "tipo": "escolha",
+      "texto": "Qual é a sua experiência com TI hoje?",
+      "ajuda": "Isso não muda o ranking, mas ajusta o ponto de partida do seu plano de estudos.",
+      "importancia": 0,
+      "opcoes": {
+        "nenhuma": {"rotulo": "Ainda não programo nem trabalho com TI", "valor": 0},
+        "iniciando": {"rotulo": "Estou começando (faculdade, curso ou estudo por conta própria)", "valor": 1},
+        "projetos": {"rotulo": "Já fiz projetos por conta própria", "valor": 2},
+        "trabalho": {"rotulo": "Já trabalho ou estagio na área", "valor": 3}
+      }
+    },
+    "horas_semana": {
+      "tipo": "escolha",
+      "texto": "Quantas horas por semana você consegue dedicar aos estudos?",
+      "ajuda": "Usamos isso para estimar quantas semanas o seu plano leva. Seja realista.",
+      "importancia": 0,
+      "opcoes": {
+        "5": {"rotulo": "Até 5 horas", "valor": 5},
+        "10": {"rotulo": "Cerca de 10 horas", "valor": 10},
+        "20": {"rotulo": "Cerca de 20 horas", "valor": 20},
+        "30": {"rotulo": "30 horas ou mais", "valor": 30}
+      }
+    },
+    "ferramenta": {
+      "tipo": "escolha",
+      "texto": "Com qual linguagem ou ferramenta você tem mais afinidade hoje?",
+      "ajuda": "Escolha a que você mais usa ou domina. Se está começando, marque “Nenhuma / Iniciante”.",
+      "importancia": 0.6,
+      "opcoes": {
+        "python": {
+          "rotulo": "Python",
+          "pesos": {"ciencia_dados": 8, "eng_dados": 7, "backend": 6, "ciberseguranca": 5, "qa": 5, "devops": 4, "cloud": 1}
+        },
+        "javascript": {
+          "rotulo": "JavaScript / TypeScript",
+          "pesos": {"frontend": 9, "backend": 5, "qa": 5, "mobile": 4}
+        },
+        "sql": {
+          "rotulo": "SQL / Bancos de dados",
+          "pesos": {"eng_dados": 8, "backend": 7, "ciencia_dados": 5, "qa": 2}
+        },
+        "linux_redes": {
+          "rotulo": "Linux / Redes",
+          "pesos": {"ciberseguranca": 8, "devops": 8, "cloud": 5, "backend": 2, "eng_dados": 1}
+        },
+        "mobile": {
+          "rotulo": "Kotlin / Swift / Dart (Flutter) / React Native",
+          "pesos": {"mobile": 10, "frontend": 2}
+        },
+        "cloud_containers": {
+          "rotulo": "Docker / Kubernetes / AWS-Azure-GCP",
+          "pesos": {"devops": 9, "cloud": 8, "eng_dados": 2, "ciberseguranca": 1}
+        },
+        "nenhuma": {
+          "rotulo": "Nenhuma / Iniciante",
+          "pesos": {"produto": 3, "qa": 3, "frontend": 2}
+        }
+      }
+    },
+    "matematica": {
+      "tipo": "likert",
+      "texto": "Matemática e estatística",
+      "ajuda": "Probabilidade, estatística, álgebra e raciocínio quantitativo.",
+      "importancia": 1.0,
+      "pesos": {"ciencia_dados": 9, "eng_dados": 3, "ciberseguranca": 3, "backend": 2, "qa": 1, "produto": 1}
+    },
+    "logica": {
+      "tipo": "likert",
+      "texto": "Lógica de programação e resolução de problemas",
+      "ajuda": "Quebrar um problema em passos e transformá-lo em código.",
+      "importancia": 1.0,
+      "pesos": {"backend": 9, "mobile": 6, "eng_dados": 6, "ciencia_dados": 5, "ciberseguranca": 5, "qa": 5, "frontend": 5, "devops": 4, "cloud": 3, "produto": 2}
+    },
+    "analise_dados": {
+      "tipo": "likert",
+      "texto": "Descobrir padrões e fazer previsões com dados",
+      "ajuda": "Analisar tabelas, gráficos e modelos para entender o que está acontecendo.",
+      "importancia": 1.0,
+      "pesos": {"ciencia_dados": 10, "eng_dados": 5, "produto": 3, "backend": 1}
+    },
+    "pipelines": {
+      "tipo": "likert",
+      "texto": "Organizar e mover grandes volumes de dados",
+      "ajuda": "Coletar dados de várias fontes, limpar e deixar tudo pronto para outras pessoas usarem.",
+      "importancia": 1.0,
+      "pesos": {"eng_dados": 10, "ciencia_dados": 3, "backend": 3, "devops": 2, "cloud": 2}
+    },
+    "apis_bd": {
+      "tipo": "likert",
+      "texto": "Construir a parte invisível dos sistemas",
+      "ajuda": "APIs, regras de negócio e bancos de dados.",
+      "importancia": 1.0,
+      "pesos": {"backend": 10, "eng_dados": 5, "mobile": 3, "devops": 2, "qa": 2, "frontend": 1, "cloud": 1, "ciencia_dados": 1}
+    },
+    "design": {
+      "tipo": "likert",
+      "texto": "Design visual e experiência do usuário",
+      "ajuda": "Layouts, cores, usabilidade e interfaces agradáveis de usar.",
+      "importancia": 1.0,
+      "pesos": {"frontend": 10, "mobile": 6, "produto": 4}
+    },
+    "mobile": {
+      "tipo": "likert",
+      "texto": "Criar aplicativos para celular",
+      "ajuda": "Apps Android e iOS, com telas, gestos e recursos do aparelho.",
+      "importancia": 1.0,
+      "pesos": {"mobile": 10, "frontend": 2, "produto": 1}
+    },
+    "gestao": {
+      "tipo": "likert",
+      "texto": "Definir prioridades e alinhar pessoas",
+      "ajuda": "Conversar com clientes, entender o negócio e decidir o que construir primeiro.",
+      "importancia": 1.0,
+      "pesos": {"produto": 10, "qa": 2, "frontend": 1}
+    },
+    "infra": {
+      "tipo": "likert",
+      "texto": "Servidores, redes e sistemas operacionais",
+      "ajuda": "Montar, configurar e manter ambientes funcionando.",
+      "importancia": 1.0,
+      "pesos": {"devops": 8, "cloud": 8, "ciberseguranca": 6, "backend": 2, "eng_dados": 2, "qa": 1}
+    },
+    "nuvem": {
+      "tipo": "likert",
+      "texto": "Nuvem e arquiteturas escaláveis",
+      "ajuda": "AWS, Azure ou Google Cloud: desenhar sistemas que crescem sem cair.",
+      "importancia": 1.0,
+      "pesos": {"cloud": 10, "devops": 6, "eng_dados": 3, "ciberseguranca": 2, "backend": 2}
+    },
+    "automacao": {
+      "tipo": "likert",
+      "texto": "Automatizar processos e entregas",
+      "ajuda": "Pipelines de build, testes e deploy que rodam sozinhos.",
+      "importancia": 1.0,
+      "pesos": {"devops": 10, "qa": 6, "cloud": 3, "backend": 2, "eng_dados": 2, "ciberseguranca": 2}
+    },
+    "seguranca": {
+      "tipo": "likert",
+      "texto": "Segurança da informação",
+      "ajuda": "Proteger sistemas, encontrar vulnerabilidades e entender como ataques funcionam.",
+      "importancia": 1.0,
+      "pesos": {"ciberseguranca": 10, "devops": 2, "cloud": 2, "backend": 2, "qa": 2}
+    },
+    "testes": {
+      "tipo": "likert",
+      "texto": "Testar software e caçar bugs",
+      "ajuda": "Garantir que o sistema funcione antes de chegar ao usuário.",
+      "importancia": 1.0,
+      "pesos": {"qa": 10, "devops": 2, "backend": 1, "frontend": 1, "mobile": 1}
+    },
+    "objetivo": {
+      "tipo": "escolha",
+      "texto": "Qual é o seu principal objetivo profissional?",
+      "ajuda": "Pense em onde você quer estar daqui a alguns anos.",
+      "importancia": 0.4,
+      "opcoes": {
+        "construir": {
+          "rotulo": "Construir sistemas e funcionalidades",
+          "pesos": {"backend": 6, "frontend": 6, "mobile": 6, "eng_dados": 4, "qa": 1}
+        },
+        "inovar": {
+          "rotulo": "Pesquisar e inovar com dados e IA",
+          "pesos": {"ciencia_dados": 8, "eng_dados": 3, "backend": 1}
+        },
+        "sustentar": {
+          "rotulo": "Proteger, manter e garantir a estabilidade dos sistemas",
+          "pesos": {"ciberseguranca": 7, "devops": 7, "cloud": 6, "qa": 6, "eng_dados": 2, "backend": 1}
+        },
+        "liderar": {
+          "rotulo": "Liderar produtos e decisões estratégicas",
+          "pesos": {"produto": 9, "cloud": 2, "qa": 1}
+        }
+      }
+    },
+    "entrega": {
+      "tipo": "escolha",
+      "texto": "Que tipo de valor você mais gostaria de entregar?",
+      "ajuda": "Pense no resultado do seu trabalho que você teria mais orgulho de mostrar.",
+      "importancia": 0.6,
+      "opcoes": {
+        "produto_usuario": {
+          "rotulo": "O produto final que o usuário utiliza",
+          "pesos": {"frontend": 8, "mobile": 8, "backend": 5, "produto": 3}
+        },
+        "infraestrutura": {
+          "rotulo": "A infraestrutura que sustenta o sistema",
+          "pesos": {"cloud": 8, "devops": 6, "eng_dados": 3, "ciberseguranca": 2}
+        },
+        "protecao": {
+          "rotulo": "A segurança contra invasões",
+          "pesos": {"ciberseguranca": 10}
+        },
+        "insights": {
+          "rotulo": "Previsões e decisões baseadas em modelos",
+          "pesos": {"ciencia_dados": 10, "eng_dados": 2, "produto": 2}
+        },
+        "dados_prontos": {
+          "rotulo": "Dados limpos, organizados e disponíveis para todos",
+          "pesos": {"eng_dados": 10, "ciencia_dados": 3, "backend": 1}
+        },
+        "qualidade": {
+          "rotulo": "Software confiável e sem falhas",
+          "pesos": {"qa": 10, "devops": 1, "backend": 1}
+        },
+        "fluxo_entrega": {
+          "rotulo": "Entregas rápidas, frequentes e automatizadas",
+          "pesos": {"devops": 10, "qa": 3, "cloud": 2}
+        },
+        "estrategia": {
+          "rotulo": "O produto certo, no momento certo, para o negócio",
+          "pesos": {"produto": 10, "frontend": 1}
+        }
+      }
+    },
+    "ambiente": {
+      "tipo": "escolha",
+      "texto": "Em qual ambiente você prefere atuar?",
+      "ajuda": "Onde você imagina o seu trabalho funcionando?",
+      "importancia": 0.3,
+      "opcoes": {
+        "web": {
+          "rotulo": "Web",
+          "pesos": {"frontend": 8, "backend": 6, "qa": 3, "produto": 2}
+        },
+        "mobile": {
+          "rotulo": "Dispositivos móveis",
+          "pesos": {"mobile": 9, "qa": 2, "produto": 1}
+        },
+        "dados": {
+          "rotulo": "Dados e analytics",
+          "pesos": {"ciencia_dados": 8, "eng_dados": 8, "backend": 1}
+        },
+        "infra": {
+          "rotulo": "Infraestrutura e nuvem",
+          "pesos": {"cloud": 8, "devops": 7, "ciberseguranca": 6, "eng_dados": 1}
+        },
+        "indiferente": {
+          "rotulo": "Tanto faz",
+          "pesos": {}
+        }
+      }
+    }
+  },
+  "regras_cruzadas": [
+    {
+      "id": "X01",
+      "descricao": "Pouca afinidade com lógica reduz a aderência às trilhas que programam o dia todo.",
+      "se": [{"pergunta": "logica", "op": "<=", "valor": 2}],
+      "efeito": {"backend": -20, "mobile": -12, "eng_dados": -12, "ciencia_dados": -10, "ciberseguranca": -10, "frontend": -8, "devops": -8, "qa": -6}
+    },
+    {
+      "id": "X02",
+      "descricao": "Ciência de Dados exige base em matemática e estatística.",
+      "se": [{"pergunta": "matematica", "op": "<=", "valor": 2}],
+      "efeito": {"ciencia_dados": -14}
+    },
+    {
+      "id": "X03",
+      "descricao": "Gosta de dados, mas evita matemática: Engenharia de Dados costuma ser um caminho melhor.",
+      "se": [{"pergunta": "matematica", "op": "<=", "valor": 2}, {"pergunta": "analise_dados", "op": ">=", "valor": 4}],
+      "efeito": {"eng_dados": 6}
+    },
+    {
+      "id": "X04",
+      "descricao": "Matemática forte combinada com gosto por análise de dados favorece Ciência de Dados.",
+      "se": [{"pergunta": "matematica", "op": ">=", "valor": 4}, {"pergunta": "analise_dados", "op": ">=", "valor": 4}],
+      "efeito": {"ciencia_dados": 8}
+    },
+    {
+      "id": "X05",
+      "descricao": "Quer organizar dados, não modelá-los: favorece Engenharia de Dados sobre Ciência de Dados.",
+      "se": [{"pergunta": "pipelines", "op": ">=", "valor": 4}, {"pergunta": "analise_dados", "op": "<=", "valor": 2}],
+      "efeito": {"eng_dados": 6, "ciencia_dados": -8}
+    },
+    {
+      "id": "X06",
+      "descricao": "Pouco interesse em análise de dados reduz a aderência a Ciência de Dados.",
+      "se": [{"pergunta": "analise_dados", "op": "<=", "valor": 2}],
+      "efeito": {"ciencia_dados": -12}
+    },
+    {
+      "id": "X07",
+      "descricao": "Pouco interesse em pipelines reduz a aderência a Engenharia de Dados.",
+      "se": [{"pergunta": "pipelines", "op": "<=", "valor": 2}],
+      "efeito": {"eng_dados": -12}
+    },
+    {
+      "id": "X08",
+      "descricao": "Pouca afinidade com design reduz a aderência a Front-end e Mobile.",
+      "se": [{"pergunta": "design", "op": "<=", "valor": 2}],
+      "efeito": {"frontend": -18, "mobile": -8}
+    },
+    {
+      "id": "X09",
+      "descricao": "Sem interesse em apps de celular, Mobile perde aderência.",
+      "se": [{"pergunta": "mobile", "op": "<=", "valor": 2}],
+      "efeito": {"mobile": -15}
+    },
+    {
+      "id": "X10",
+      "descricao": "Interesse em apps de celular combinado com design favorece Mobile.",
+      "se": [{"pergunta": "mobile", "op": ">=", "valor": 4}, {"pergunta": "design", "op": ">=", "valor": 4}],
+      "efeito": {"mobile": 5}
+    },
+    {
+      "id": "X11",
+      "descricao": "Pouco interesse em definir prioridades e alinhar pessoas reduz a aderência a Gestão de Produtos.",
+      "se": [{"pergunta": "gestao", "op": "<=", "valor": 2}],
+      "efeito": {"produto": -20}
+    },
+    {
+      "id": "X12",
+      "descricao": "Design e visão de negócio juntos favorecem Gestão de Produtos.",
+      "se": [{"pergunta": "design", "op": ">=", "valor": 4}, {"pergunta": "gestao", "op": ">=", "valor": 4}],
+      "efeito": {"produto": 4}
+    },
+    {
+      "id": "X13",
+      "descricao": "Sem base técnica, mas com desejo de liderar: Gestão de Produtos é uma boa porta de entrada.",
+      "se": [{"pergunta": "ferramenta", "op": "==", "valor": "nenhuma"}, {"pergunta": "objetivo", "op": "==", "valor": "liderar"}],
+      "efeito": {"produto": 4}
+    },
+    {
+      "id": "X14",
+      "descricao": "Pouco interesse em segurança reduz a aderência a Cibersegurança.",
+      "se": [{"pergunta": "seguranca", "op": "<=", "valor": 2}],
+      "efeito": {"ciberseguranca": -18}
+    },
+    {
+      "id": "X15",
+      "descricao": "Segurança combinada com infraestrutura favorece Cibersegurança.",
+      "se": [{"pergunta": "seguranca", "op": ">=", "valor": 4}, {"pergunta": "infra", "op": ">=", "valor": 4}],
+      "efeito": {"ciberseguranca": 5}
+    },
+    {
+      "id": "X16",
+      "descricao": "Pouco interesse em testes reduz a aderência a QA.",
+      "se": [{"pergunta": "testes", "op": "<=", "valor": 2}],
+      "efeito": {"qa": -18}
+    },
+    {
+      "id": "X17",
+      "descricao": "Pouco interesse em construir APIs e bancos de dados reduz a aderência a Back-end.",
+      "se": [{"pergunta": "apis_bd", "op": "<=", "valor": 2}],
+      "efeito": {"backend": -18, "eng_dados": -4}
+    },
+    {
+      "id": "X18",
+      "descricao": "Pouco interesse em servidores e em nuvem reduz a aderência a Cloud e DevOps.",
+      "se": [{"pergunta": "infra", "op": "<=", "valor": 2}, {"pergunta": "nuvem", "op": "<=", "valor": 2}],
+      "efeito": {"cloud": -15, "devops": -12}
+    },
+    {
+      "id": "X19",
+      "descricao": "Pouco interesse em nuvem reduz a aderência a Cloud Architecture.",
+      "se": [{"pergunta": "nuvem", "op": "<=", "valor": 2}],
+      "efeito": {"cloud": -12}
+    },
+    {
+      "id": "X20",
+      "descricao": "Pouco interesse em automação reduz a aderência a DevOps.",
+      "se": [{"pergunta": "automacao", "op": "<=", "valor": 2}],
+      "efeito": {"devops": -12}
+    },
+    {
+      "id": "X21",
+      "descricao": "Automação combinada com infraestrutura favorece DevOps.",
+      "se": [{"pergunta": "automacao", "op": ">=", "valor": 4}, {"pergunta": "infra", "op": ">=", "valor": 4}],
+      "efeito": {"devops": 6}
+    },
+    {
+      "id": "X22",
+      "descricao": "Quer desenhar arquiteturas na nuvem, mas não automatizar: favorece Cloud sobre DevOps.",
+      "se": [{"pergunta": "nuvem", "op": ">=", "valor": 4}, {"pergunta": "automacao", "op": "<=", "valor": 2}],
+      "efeito": {"cloud": 4, "devops": -8}
+    }
+  ]
+}

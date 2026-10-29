@@ -1,130 +1,190 @@
-# Fase 1 — Engenharia de Conhecimento e Matriz de Decisão
+# Fase 1: Engenharia do Conhecimento e Modelagem JSON (Etapa 2)
 
-Consultor Inteligente de Carreiras em TI · Sistema Especialista baseado em Regras (Experta)
+_Documento gerado por `gerar_matriz.py` a partir de `base_conhecimento/`. Não edite à mão: altere o JSON e gere de novo._
 
-## 1. Modelo de raciocínio
+## 1. Arquivos da base de conhecimento
 
-O sistema usa **encadeamento para frente** (forward chaining):
+| Arquivo | Conteúdo |
+|---|---|
+| `base_conhecimento/regras_carreiras.json` | Parâmetros, telas do wizard, perguntas com pesos por trilha e regras cruzadas (penalidades e bônus) |
+| `base_conhecimento/trilhas.json` | Características das 10 trilhas: competências de nível Júnior, certificações, projetos de portfólio e fases do roadmap |
 
-1. As respostas da entrevista viram o fato `Perfil`.
-2. Cada regra `SE <condição sobre o Perfil> ENTÃO <soma/subtrai pontos de trilhas>` é disparada quando seu padrão casa.
-3. Ao final, uma regra de baixa prioridade (`salience=-100`) apura o placar, desempata e declara o fato `Recomendacao`.
+O código Python (`conhecimento.py`, `motor_pontuacao.py`, `gaps_roadmap.py`, `app.py`) **não contém** perguntas, pesos nem conteúdo de trilhas. Ao carregar, `conhecimento.validar` confere a consistência da base e lista todos os problemas encontrados.
 
-A pontuação por regra permite combinar várias evidências e **explicar** a decisão listando as regras que mais contribuíram.
+## 2. Estrutura do `regras_carreiras.json`
 
-## 2. Dimensões da entrevista (variáveis de entrada)
+```text
+parametros           limiares de empate e de compatibilidade fraca, faixas de rótulo e escala Likert
+passos[]             passos do wizard, cada um com telas[] que listam os ids das perguntas
+perguntas{id}        tipo (likert | escolha), texto, ajuda, importancia e pesos (por trilha)
+  likert             pesos: {trilha: 0 a 10}
+  escolha            opcoes: {opcao: {rotulo, pesos: {trilha: 0 a 10}}}
+regras_cruzadas[]    id, descricao, se[] (pergunta, op, valor) e efeito {trilha: pontos percentuais}
+```
 
-| Campo | Pergunta | Valores possíveis |
+## 3. Modelo de cálculo
+
+Intensidade da resposta: Likert `(nota − 1) / 4`; escolha, `1` para a opção marcada.
+
+```text
+pontos(trilha)   = Σ importância × peso(trilha) × intensidade
+máximo(trilha)   = Σ importância × maior peso possível da trilha
+base(trilha)     = 100 × pontos / máximo
+final(trilha)    = limitar(base + Σ ajustes das regras cruzadas, 0, 100)
+```
+
+Empate técnico: trilhas a até **5 pp** do 1º lugar. Compatibilidade fraca: 1º lugar abaixo de **45%**.
+
+Faixas: ≥ 80%: Muito compatível; ≥ 60%: Compatível; ≥ 40%: Parcialmente compatível; ≥ 0%: Pouco compatível.
+
+## 4. Telas do wizard
+
+| Passo | Tela | Perguntas |
 |---|---|---|
-| `matematica` | Afinidade com matemática e estatística | `baixa`, `media`, `alta` |
-| `atuacao` | Preferência de atuação diária | `algoritmos`, `layouts`, `apps_moveis`, `analise_dados`, `pipelines`, `seguranca`, `automacao`, `servidores`, `arquitetura`, `testes`, `produto` |
-| `ferramenta` | Linguagem/ferramenta de maior afinidade | `python`, `javascript`, `sql`, `linux_redes`, `mobile`, `cloud_containers`, `nenhuma` |
-| `entrega` | Tipo de valor preferido | `produto_usuario`, `infraestrutura`, `protecao`, `insights`, `dados_prontos`, `qualidade`, `fluxo_entrega`, `estrategia` |
-| `plataforma` | Ambiente preferido | `web`, `mobile`, `dados`, `infra`, `indiferente` |
-| `negocio` | Afinidade com conversar com clientes/negócio/times | `baixa`, `media`, `alta` |
-| `objetivo` | Objetivo profissional | `construir`, `inovar`, `sustentar`, `liderar` |
+| 1. Perfil pessoal | Seu ponto de partida | `experiencia`, `horas_semana`, `ferramenta` |
+| 2. Afinidades técnicas | Raciocínio e dados | `matematica`, `logica`, `analise_dados`, `pipelines` |
+| 2. Afinidades técnicas | Construção de produtos | `apis_bd`, `design`, `mobile`, `gestao` |
+| 2. Afinidades técnicas | Infraestrutura, qualidade e segurança | `infra`, `nuvem`, `automacao`, `seguranca`, `testes` |
+| 3. Objetivos de carreira | Para onde você quer ir | `objetivo`, `entrega`, `ambiente` |
 
-## 3. Matriz resumida: sinais de cada trilha
+## 5. Matriz de pesos: afinidades (escala de 1 a 5)
 
-`●` = sinal decisivo (regra núcleo) · `○` = sinal de reforço · `✕` = sinal que reduz a aderência
+Peso de 0 a 10 de cada afinidade em cada trilha. Célula vazia = sem influência.
 
-| Trilha | `atuacao` | `ferramenta` | `entrega` | `plataforma` | `matematica` / `negocio` / `objetivo` |
-|---|---|---|---|---|---|
-| Back-end | ● algoritmos | ● python / sql / javascript | — | ○ web ou indiferente | ○ matemática não-alta; ○ objetivo construir |
-| Front-end & UI/UX | ● layouts | ● javascript | ● produto_usuario | ○ web | ✕ plataforma mobile |
-| Ciência de Dados e ML | ● analise_dados | ○ python | ● insights | ○ dados | ● matemática alta; ○ objetivo inovar; ✕ matemática baixa |
-| Engenharia de Dados | ● pipelines | ● python / sql | ● dados_prontos | ○ dados | ○ matemática não-alta |
-| Cibersegurança | ● seguranca | ● linux_redes / python | ● protecao | — | ○ matemática média/alta (criptografia) |
-| DevOps & SRE | ● automacao ○ servidores | ● linux_redes / cloud_containers | ● fluxo_entrega | — | — |
-| Cloud Architecture | ● arquitetura ○ servidores | ● cloud_containers | ○ infraestrutura | ○ infra | — |
-| Mobile | ● apps_moveis ○ layouts | ○ mobile | — | ● mobile | — |
-| QA | ● testes | ○ python / javascript | ● qualidade | — | — |
-| Gestão de Produtos | ● produto | — | ● estrategia | — | ● negocio alta; ○ objetivo liderar; ✕ negocio baixa |
+| Pergunta | Back-end | Front-end | Ciência de Dados | Eng. de Dados | Segurança | DevOps | Cloud | Mobile | QA | Produto |
+|---|---|---|---|---|---|---|---|---|---|---|
+| Matemática e estatística (`matematica`) | 2 |  | 9 | 3 | 3 |  |  |  | 1 | 1 |
+| Lógica de programação e resolução de problemas (`logica`) | 9 | 5 | 5 | 6 | 5 | 4 | 3 | 6 | 5 | 2 |
+| Descobrir padrões e fazer previsões com dados (`analise_dados`) | 1 |  | 10 | 5 |  |  |  |  |  | 3 |
+| Organizar e mover grandes volumes de dados (`pipelines`) | 3 |  | 3 | 10 |  | 2 | 2 |  |  |  |
+| Construir a parte invisível dos sistemas (`apis_bd`) | 10 | 1 | 1 | 5 |  | 2 | 1 | 3 | 2 |  |
+| Design visual e experiência do usuário (`design`) |  | 10 |  |  |  |  |  | 6 |  | 4 |
+| Criar aplicativos para celular (`mobile`) |  | 2 |  |  |  |  |  | 10 |  | 1 |
+| Definir prioridades e alinhar pessoas (`gestao`) |  | 1 |  |  |  |  |  |  | 2 | 10 |
+| Servidores, redes e sistemas operacionais (`infra`) | 2 |  |  | 2 | 6 | 8 | 8 |  | 1 |  |
+| Nuvem e arquiteturas escaláveis (`nuvem`) | 2 |  |  | 3 | 2 | 6 | 10 |  |  |  |
+| Automatizar processos e entregas (`automacao`) | 2 |  |  | 2 | 2 | 10 | 3 |  | 6 |  |
+| Segurança da informação (`seguranca`) | 2 |  |  |  | 10 | 2 | 2 |  | 2 |  |
+| Testar software e caçar bugs (`testes`) | 1 | 1 |  |  |  | 2 |  | 1 | 10 |  |
 
-## 4. Tabela de regras (R01–R33)
+## 6. Matriz de pesos: perguntas de escolha
 
-| Regra | SE (condições cruzadas) | ENTÃO (pontos) |
-|---|---|---|
-| R01 | atuacao = algoritmos **E** ferramenta ∈ {python, sql, javascript} | Back-end +4 |
-| R02 | atuacao = algoritmos **E** plataforma ∈ {web, indiferente} **E** matematica ≠ alta | Back-end +3 |
-| R03 | atuacao = algoritmos **E** objetivo = construir | Back-end +2 |
-| R04 | atuacao = algoritmos **E** ferramenta = sql | Back-end +2 |
-| R05 | atuacao = layouts **E** ferramenta = javascript | Front-end +6 |
-| R06 | atuacao = layouts **E** entrega = produto_usuario | Front-end +4 |
-| R07 | atuacao = layouts **E** plataforma = web | Front-end +2 |
-| R08 | atuacao = apps_moveis | Mobile +6 |
-| R09 | plataforma = mobile **E** ferramenta = mobile | Mobile +4 |
-| R10 | atuacao = layouts **E** plataforma = mobile | Mobile +4, Front-end −3 |
-| R11 | matematica = alta **E** atuacao = analise_dados | Ciência de Dados +6 |
-| R12 | entrega = insights **E** ferramenta = python | Ciência de Dados +4 |
-| R13 | objetivo = inovar **E** matematica ∈ {media, alta} **E** plataforma = dados | Ciência de Dados +3 |
-| R14 | matematica = baixa **E** atuacao = analise_dados | Ciência de Dados −4, Eng. de Dados +2 |
-| R15 | atuacao = pipelines **E** ferramenta ∈ {python, sql} | Eng. de Dados +6 |
-| R16 | entrega = dados_prontos **E** plataforma = dados | Eng. de Dados +4 |
-| R17 | atuacao = pipelines **E** matematica ≠ alta | Eng. de Dados +2, Ciência de Dados −2 |
-| R18 | atuacao = analise_dados **E** entrega = dados_prontos | Eng. de Dados +3, Ciência de Dados −2 |
-| R19 | atuacao = seguranca **E** ferramenta ∈ {linux_redes, python} | Cibersegurança +6 |
-| R20 | entrega = protecao | Cibersegurança +5 |
-| R21 | atuacao = seguranca **E** matematica ∈ {media, alta} | Cibersegurança +2 |
-| R22 | atuacao = automacao **E** ferramenta ∈ {linux_redes, cloud_containers} | DevOps +6 |
-| R23 | entrega = fluxo_entrega | DevOps +5 |
-| R24 | atuacao = servidores **E** ferramenta ∈ {linux_redes, cloud_containers} | DevOps +3, Cloud +1 |
-| R25 | atuacao = arquitetura **E** ferramenta = cloud_containers | Cloud +6 |
-| R26 | plataforma = infra **E** entrega = infraestrutura **E** atuacao ∈ {arquitetura, servidores} | Cloud +4 |
-| R27 | atuacao = testes | QA +6 |
-| R28 | entrega = qualidade | QA +5 |
-| R29 | atuacao = testes **E** ferramenta ∈ {python, javascript} | QA +3 |
-| R30 | atuacao = produto | Gestão de Produtos +6 |
-| R31 | entrega = estrategia **E** negocio = alta | Gestão de Produtos +5 |
-| R32 | objetivo = liderar **E** negocio ∈ {media, alta} | Gestão de Produtos +3 |
-| R33 | atuacao = produto **E** negocio = baixa | Gestão de Produtos −4 |
+### `experiencia`: Qual é a sua experiência com TI hoje?
 
-## 5. Regras de desambiguação (pontos críticos)
+Importância: **0** (não pontua: só ajusta o plano de estudos).
 
-| Par ambíguo | Como o sistema diferencia | Regras |
-|---|---|---|
-| **Ciência de Dados × Eng. de Dados** | Ciência exige matemática alta e foco em *insights*/modelos. Engenharia prioriza pipelines e dados prontos. Quem analisa dados mas quer entregar dados organizados, ou tem matemática baixa, é empurrado para Eng. de Dados. | R11, R12, R14, R15, R17, R18 |
-| **Front-end × Mobile** | Interfaces visuais no ambiente móvel dão pontos a Mobile e tiram de Front-end. | R05, R07, R08, R10 |
-| **DevOps × Cloud** | DevOps = automação, CI/CD e operação (`automacao`, `fluxo_entrega`). Cloud = planejamento/arquitetura escalável (`arquitetura`, `infraestrutura`). `servidores` favorece DevOps (mais operacional). | R22–R26 |
-| **Back-end × Ciência de Dados** | Lógica de programação sem matemática avançada favorece Back-end. | R01, R02 |
-| **Gestão de Produtos × perfis técnicos** | Exige afinidade com negócio. Interesse em produto com `negocio = baixa` perde pontos. | R30–R33 |
+| Opção | Valor |
+|---|---|
+| Ainda não programo nem trabalho com TI | 0 |
+| Estou começando (faculdade, curso ou estudo por conta própria) | 1 |
+| Já fiz projetos por conta própria | 2 |
+| Já trabalho ou estagio na área | 3 |
 
-## 6. Critérios de decisão
+### `horas_semana`: Quantas horas por semana você consegue dedicar aos estudos?
 
-1. **Maior pontuação** no placar.
-2. Empate: trilha com **mais regras positivas** disparadas.
-3. Persistindo o empate: ordem fixa do catálogo (`motor_inferencia.py` (dicionário `TRILHAS`)).
+Importância: **0** (não pontua: só ajusta o plano de estudos).
 
-**Confiança:** `alta` (margem ≥ 5 sobre a 2ª colocada), `media` (margem 2–4) e `baixa` (margem < 2 ou pontuação do vencedor < 6, comum em perfis iniciantes sem preferências marcantes). Em confiança baixa, a interface deve exibir também a segunda opção.
+| Opção | Valor |
+|---|---|
+| Até 5 horas | 5 |
+| Cerca de 10 horas | 10 |
+| Cerca de 20 horas | 20 |
+| 30 horas ou mais | 30 |
 
-## 7. Validação com personas (Fase 4)
+### `ferramenta`: Com qual linguagem ou ferramenta você tem mais afinidade hoje?
 
-Os testes automatizados estão em `testes.py` (`python testes.py` ou `pytest testes.py`).
+Importância: **0.6**
 
-### Personas principais
+| Opção | Back-end | Front-end | Ciência de Dados | Eng. de Dados | Segurança | DevOps | Cloud | Mobile | QA | Produto |
+|---|---|---|---|---|---|---|---|---|---|---|
+| Python | 6 |  | 8 | 7 | 5 | 4 | 1 |  | 5 |  |
+| JavaScript / TypeScript | 5 | 9 |  |  |  |  |  | 4 | 5 |  |
+| SQL / Bancos de dados | 7 |  | 5 | 8 |  |  |  |  | 2 |  |
+| Linux / Redes | 2 |  |  | 1 | 8 | 8 | 5 |  |  |  |
+| Kotlin / Swift / Dart (Flutter) / React Native |  | 2 |  |  |  |  |  | 10 |  |  |
+| Docker / Kubernetes / AWS-Azure-GCP |  |  |  | 2 | 1 | 9 | 8 |  |  |  |
+| Nenhuma / Iniciante |  | 2 |  |  |  |  |  |  | 3 | 3 |
 
-| Persona | Perfil | Esperada | Obtida | Pontos | Confiança |
-|---|---|---|---|---|---|
-| Ana (analítica) | Adora estatística, trabalha com Python e quer prever comportamentos a partir de dados. | Ciência de Dados e Machine Learning | ✅ Ciência de Dados e Machine Learning | 13 | alta |
-| Bruno (infra/segurança) | Domina Linux e redes e gosta de procurar vulnerabilidades para proteger sistemas. | Cibersegurança (Security / Pentesting) | ✅ Cibersegurança (Security / Pentesting) | 13 | alta |
-| Carla (visual/front-end) | Gosta de criar interfaces bonitas em JavaScript, para a web, usadas direto pelo usuário. | Desenvolvimento Front-end & UI/UX | ✅ Desenvolvimento Front-end & UI/UX | 12 | alta |
-| Diego (negócios/produto) | Sem experiência em código, ama conversar com clientes e definir prioridades e estratégia. | Gestão de Produtos (Product Management) | ✅ Gestão de Produtos (Product Management) | 14 | alta |
-| Eduarda (pipelines) | Usa SQL e Python para mover, limpar e organizar dados para outros times. | Engenharia de Dados | ✅ Engenharia de Dados | 12 | alta |
-| Felipe (servidores/APIs) | Curte lógica de programação em Python, APIs e regras de negócio na web. | Desenvolvimento Back-end | ✅ Desenvolvimento Back-end | 9 | alta |
-| Gabriela (automação) | Gosta de automatizar build e deploy com contêineres e entregas frequentes. | DevOps & SRE | ✅ DevOps & SRE | 11 | alta |
-| Henrique (arquitetura) | Quer desenhar infraestruturas escaláveis e migrações em AWS/Azure/GCP. | Computação em Nuvem (Cloud Architecture) | ✅ Computação em Nuvem (Cloud Architecture) | 10 | alta |
-| Isabela (apps) | Quer criar aplicativos para celular usando Flutter ou Kotlin. | Desenvolvimento Mobile | ✅ Desenvolvimento Mobile | 10 | alta |
-| João (qualidade) | Gosta de caçar bugs, automatizar testes e garantir software confiável. | Engenharia de Qualidade e Testes (QA) | ✅ Engenharia de Qualidade e Testes (QA) | 14 | alta |
+### `objetivo`: Qual é o seu principal objetivo profissional?
 
-### Casos de ambiguidade
+Importância: **0.4**
 
-| Persona | Perfil | Esperada | Obtida | Pontos | Confiança |
-|---|---|---|---|---|---|
-| Karina (analisa dados, mas quer dados prontos) | Gosta de mexer em dados brutos, mas prefere entregar bases organizadas a criar modelos. | Engenharia de Dados | ✅ Engenharia de Dados | 7 | alta |
-| Lucas (layouts no celular) | Gosta de criar interfaces, mas para aplicativos de celular. | Desenvolvimento Mobile | ✅ Desenvolvimento Mobile | 8 | alta |
-| Marina (servidores e entrega rápida) | Mexe com servidores Linux e quer entregas rápidas e automatizadas. | DevOps & SRE | ✅ DevOps & SRE | 8 | alta |
-| Nando (matemática baixa, análise de dados) | Gosta de analisar dados brutos, mas tem pouca afinidade com matemática e quer dados prontos. | Engenharia de Dados | ✅ Engenharia de Dados | 9 | alta |
+| Opção | Back-end | Front-end | Ciência de Dados | Eng. de Dados | Segurança | DevOps | Cloud | Mobile | QA | Produto |
+|---|---|---|---|---|---|---|---|---|---|---|
+| Construir sistemas e funcionalidades | 6 | 6 |  | 4 |  |  |  | 6 | 1 |  |
+| Pesquisar e inovar com dados e IA | 1 |  | 8 | 3 |  |  |  |  |  |  |
+| Proteger, manter e garantir a estabilidade dos sistemas | 1 |  |  | 2 | 7 | 7 | 6 |  | 6 |  |
+| Liderar produtos e decisões estratégicas |  |  |  |  |  |  | 2 |  | 1 | 9 |
 
-### Perfil sem preferências marcantes
+### `entrega`: Que tipo de valor você mais gostaria de entregar?
 
-Um iniciante que escolhe "algoritmos", mas não tem ferramenta nem plataforma definidas (`nenhuma` / `indiferente`), recebe **Desenvolvimento Back-end** com apenas 5 pontos e confiança **baixa**. O sistema sinaliza a incerteza e exibe a segunda opção.
+Importância: **0.6**
+
+| Opção | Back-end | Front-end | Ciência de Dados | Eng. de Dados | Segurança | DevOps | Cloud | Mobile | QA | Produto |
+|---|---|---|---|---|---|---|---|---|---|---|
+| O produto final que o usuário utiliza | 5 | 8 |  |  |  |  |  | 8 |  | 3 |
+| A infraestrutura que sustenta o sistema |  |  |  | 3 | 2 | 6 | 8 |  |  |  |
+| A segurança contra invasões |  |  |  |  | 10 |  |  |  |  |  |
+| Previsões e decisões baseadas em modelos |  |  | 10 | 2 |  |  |  |  |  | 2 |
+| Dados limpos, organizados e disponíveis para todos | 1 |  | 3 | 10 |  |  |  |  |  |  |
+| Software confiável e sem falhas | 1 |  |  |  |  | 1 |  |  | 10 |  |
+| Entregas rápidas, frequentes e automatizadas |  |  |  |  |  | 10 | 2 |  | 3 |  |
+| O produto certo, no momento certo, para o negócio |  | 1 |  |  |  |  |  |  |  | 10 |
+
+### `ambiente`: Em qual ambiente você prefere atuar?
+
+Importância: **0.3**
+
+| Opção | Back-end | Front-end | Ciência de Dados | Eng. de Dados | Segurança | DevOps | Cloud | Mobile | QA | Produto |
+|---|---|---|---|---|---|---|---|---|---|---|
+| Web | 6 | 8 |  |  |  |  |  |  | 3 | 2 |
+| Dispositivos móveis |  |  |  |  |  |  |  | 9 | 2 | 1 |
+| Dados e analytics | 1 |  | 8 | 8 |  |  |  |  |  |  |
+| Infraestrutura e nuvem |  |  |  | 1 | 6 | 7 | 8 |  |  |  |
+| Tanto faz |  |  |  |  |  |  |  |  |  |  |
+
+## 7. Regras cruzadas (penalidades e bônus)
+
+Efeitos em pontos percentuais (pp) somados à compatibilidade base. Valores negativos são penalidades para perfis conflitantes.
+
+| Regra | Condição | Efeito | Motivo |
+|---|---|---|---|
+| X01 | `logica` ≤ 2 | Back-end -20, Mobile -12, Eng. de Dados -12, Ciência de Dados -10, Segurança -10, Front-end -8, DevOps -8, QA -6 | Pouca afinidade com lógica reduz a aderência às trilhas que programam o dia todo. |
+| X02 | `matematica` ≤ 2 | Ciência de Dados -14 | Ciência de Dados exige base em matemática e estatística. |
+| X03 | `matematica` ≤ 2 **e** `analise_dados` ≥ 4 | Eng. de Dados +6 | Gosta de dados, mas evita matemática: Engenharia de Dados costuma ser um caminho melhor. |
+| X04 | `matematica` ≥ 4 **e** `analise_dados` ≥ 4 | Ciência de Dados +8 | Matemática forte combinada com gosto por análise de dados favorece Ciência de Dados. |
+| X05 | `pipelines` ≥ 4 **e** `analise_dados` ≤ 2 | Eng. de Dados +6, Ciência de Dados -8 | Quer organizar dados, não modelá-los: favorece Engenharia de Dados sobre Ciência de Dados. |
+| X06 | `analise_dados` ≤ 2 | Ciência de Dados -12 | Pouco interesse em análise de dados reduz a aderência a Ciência de Dados. |
+| X07 | `pipelines` ≤ 2 | Eng. de Dados -12 | Pouco interesse em pipelines reduz a aderência a Engenharia de Dados. |
+| X08 | `design` ≤ 2 | Front-end -18, Mobile -8 | Pouca afinidade com design reduz a aderência a Front-end e Mobile. |
+| X09 | `mobile` ≤ 2 | Mobile -15 | Sem interesse em apps de celular, Mobile perde aderência. |
+| X10 | `mobile` ≥ 4 **e** `design` ≥ 4 | Mobile +5 | Interesse em apps de celular combinado com design favorece Mobile. |
+| X11 | `gestao` ≤ 2 | Produto -20 | Pouco interesse em definir prioridades e alinhar pessoas reduz a aderência a Gestão de Produtos. |
+| X12 | `design` ≥ 4 **e** `gestao` ≥ 4 | Produto +4 | Design e visão de negócio juntos favorecem Gestão de Produtos. |
+| X13 | `ferramenta` = nenhuma **e** `objetivo` = liderar | Produto +4 | Sem base técnica, mas com desejo de liderar: Gestão de Produtos é uma boa porta de entrada. |
+| X14 | `seguranca` ≤ 2 | Segurança -18 | Pouco interesse em segurança reduz a aderência a Cibersegurança. |
+| X15 | `seguranca` ≥ 4 **e** `infra` ≥ 4 | Segurança +5 | Segurança combinada com infraestrutura favorece Cibersegurança. |
+| X16 | `testes` ≤ 2 | QA -18 | Pouco interesse em testes reduz a aderência a QA. |
+| X17 | `apis_bd` ≤ 2 | Back-end -18, Eng. de Dados -4 | Pouco interesse em construir APIs e bancos de dados reduz a aderência a Back-end. |
+| X18 | `infra` ≤ 2 **e** `nuvem` ≤ 2 | Cloud -15, DevOps -12 | Pouco interesse em servidores e em nuvem reduz a aderência a Cloud e DevOps. |
+| X19 | `nuvem` ≤ 2 | Cloud -12 | Pouco interesse em nuvem reduz a aderência a Cloud Architecture. |
+| X20 | `automacao` ≤ 2 | DevOps -12 | Pouco interesse em automação reduz a aderência a DevOps. |
+| X21 | `automacao` ≥ 4 **e** `infra` ≥ 4 | DevOps +6 | Automação combinada com infraestrutura favorece DevOps. |
+| X22 | `nuvem` ≥ 4 **e** `automacao` ≤ 2 | Cloud +4, DevOps -8 | Quer desenhar arquiteturas na nuvem, mas não automatizar: favorece Cloud sobre DevOps. |
+
+## 8. Conteúdo das trilhas (gaps e roadmap)
+
+| Trilha | Competências Júnior | Horas estimadas | Certificações | Projetos |
+|---|---|---|---|---|
+| Desenvolvimento Back-end | 11 | 337 | 4 | 3 |
+| Desenvolvimento Front-end & UI/UX | 11 | 317 | 4 | 3 |
+| Ciência de Dados e Machine Learning | 11 | 367 | 4 | 3 |
+| Engenharia de Dados | 12 | 372 | 5 | 3 |
+| Cibersegurança (Security / Pentesting) | 11 | 340 | 5 | 3 |
+| DevOps & SRE | 11 | 322 | 5 | 3 |
+| Computação em Nuvem (Cloud Architecture) | 11 | 375 | 5 | 3 |
+| Desenvolvimento Mobile | 11 | 362 | 2 | 3 |
+| Engenharia de Qualidade e Testes (QA) | 12 | 307 | 4 | 3 |
+| Gestão de Produtos (Product Management) | 12 | 270 | 4 | 3 |
+
+Cada competência tem fase (1 Fundamentos, 2 Ferramentas e prática, 3 Consolidação), prioridade (3 essencial, 2 importante, 1 desejável), horas estimadas e uma dica de estudo. A prontidão para Júnior é a soma dos pesos das competências marcadas dividida pela soma total.

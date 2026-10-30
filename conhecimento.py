@@ -10,7 +10,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-PASTA_KB = Path(__file__).with_name("base_conhecimento")
+PASTA_KB = Path(__file__).parent
 ARQUIVO_REGRAS = PASTA_KB / "regras_carreiras.json"
 ARQUIVO_TRILHAS = PASTA_KB / "trilhas.json"
 

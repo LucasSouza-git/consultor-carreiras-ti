@@ -27,7 +27,6 @@ from motor_pontuacao import avaliar
 
 st.set_page_config(page_title="Consultor de Carreiras em TI", page_icon="🧭", layout="centered")
 st.markdown(
-    f"<style>{Path(__file__).with_name('estilo.css').read_text(encoding='utf-8')}</style>",
     unsafe_allow_html=True,
 )
 
